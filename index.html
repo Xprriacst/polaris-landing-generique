@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Polaris IA — Automatisation intelligente pour PME & TPE. Pharmacies, éditeurs de presse, conciergeries Airbnb : gagnez du temps grâce à l'IA.">
+    <title>Polaris IA - Automatisation pour PME</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230D9488'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='Inter,sans-serif' font-weight='600' font-size='20'>P</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: { sans: ['Inter', 'sans-serif'] },
+                colors: {
+                    primary: '#0D9488',
+                    primaryLight: '#CCFBF1',
+                    dark: '#0F172A',
+                },
+            }
+        }
+    }
+    </script>
+    <style>
+        body { font-feature-settings: "cv11", "ss01"; }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        /* Rotating hero text */
+        .rotating-container {
+            display: block;
+            position: relative;
+            height: 2.8em;
+            overflow: hidden;
+            width: 100%;
+        }
+        @media (min-width: 1024px) {
+            .rotating-container { height: 2.6em; }
+        }
+        .rotating-item {
+            position: absolute;
+            left: 0; top: 0; width: 100%;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: opacity, transform;
+            pointer-events: none;
+        }
+        .rotating-item.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .rotating-item.exit {
+            opacity: 0;
+            transform: translateY(-40px);
+        }
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Mobile menu */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .mobile-menu.open {
+            max-height: 300px;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-600 font-sans antialiased selection:bg-teal-100 selection:text-teal-900">
+
+    <!-- 1. NAVBAR -->
+    <nav id="navbar" class="fixed w-full z-50 glass-nav transition-all duration-300 top-0">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-teal-500/20 transition-transform group-hover:scale-105">
+                    <span class="text-white font-semibold text-xl tracking-tighter">P</span>
+                </div>
+                <span class="text-slate-900 font-semibold text-lg tracking-tight">Polaris IA</span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#use-cases" class="text-sm font-medium text-slate-500 hover:text-primary transition-colors">Cas d'usage</a>
+                <a href="#approach" class="text-sm font-medium text-slate-500 hover:text-primary transition-colors">Notre approche</a>
+                <a href="#results" class="text-sm font-medium text-slate-500 hover:text-primary transition-colors">Résultats</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="#audit" class="hidden md:inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-primary rounded-full shadow-md shadow-teal-500/20 hover:bg-teal-700 hover:shadow-lg transition-all">
+                    Audit gratuit
+                </a>
+                <button id="menu-toggle" class="md:hidden text-slate-500 hover:text-slate-700 transition-colors" aria-label="Menu">
+                    <iconify-icon icon="solar:hamburger-menu-linear" width="24" id="menu-icon-open"></iconify-icon>
+                    <iconify-icon icon="solar:close-circle-linear" width="24" class="hidden" id="menu-icon-close"></iconify-icon>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-white border-t border-slate-100">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4">
+                <a href="#use-cases" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors py-2">Cas d'usage</a>
+                <a href="#approach" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors py-2">Notre approche</a>
+                <a href="#results" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors py-2">Résultats</a>
+                <a href="#audit" class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-primary rounded-full shadow-md hover:bg-teal-700 transition-all mt-2">
+                    Audit gratuit
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. HERO -->
+    <section class="lg:pt-48 lg:pb-32 overflow-hidden pt-32 pb-20 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div class="max-w-2xl relative z-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-100 mb-8">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                        </span>
+                        <span class="text-xs font-medium text-primary tracking-wide uppercase">IA pour PME &amp; TPE</span>
+                    </div>
+
+                    <h1 class="text-4xl lg:text-6xl font-semibold text-slate-900 leading-[1.15] tracking-tight mb-8">
+                        Nous aidons les
+                    </h1>
+                    <div class="rotating-container text-4xl lg:text-6xl font-semibold mb-3" id="rotating-hero" aria-live="polite">
+                        <span class="rotating-item active" data-index="0">
+                            <span class="text-primary mr-2">pharmaciens</span>
+                            <span class="text-slate-400 text-2xl lg:text-4xl font-normal">à se libérer 1h/jour</span>
+                        </span>
+                        <span class="rotating-item" data-index="1">
+                            <span class="text-primary mr-2">éditeurs de presse</span>
+                            <span class="text-slate-400 text-2xl lg:text-4xl font-normal">à booster leur CA pub</span>
+                        </span>
+                        <span class="rotating-item" data-index="2">
+                            <span class="text-primary mr-2">conciergeries</span>
+                            <span class="text-slate-400 text-2xl lg:text-4xl font-normal">à se libérer l'esprit</span>
+                        </span>
+                        <span class="rotating-item" data-index="3">
+                            <span class="text-primary mr-2">comptables</span>
+                            <span class="text-slate-400 text-2xl lg:text-4xl font-normal">à automatiser la saisie</span>
+                        </span>
+                        <span class="rotating-item" data-index="4">
+                            <span class="text-primary mr-2">agences immo</span>
+                            <span class="text-slate-400 text-2xl lg:text-4xl font-normal">à qualifier les leads</span>
+                        </span>
+                        <span class="rotating-item" data-index="5">
+                            <span class="text-primary mr-2">e-commerçants</span>
+                            <span class="text-slate-400 text-2xl lg:text-4xl font-normal">à gérer le support</span>
+                        </span>
+                    </div>
+                    <p class="text-4xl lg:text-6xl font-semibold text-slate-900 leading-[1.15] tracking-tight mb-8">
+                        grâce à l'intelligence artificielle.
+                    </p>
+
+                    <p class="text-lg text-slate-500 mb-10 leading-relaxed max-w-lg">
+                        Automatisez vos tâches répétitives, augmentez votre rentabilité et redonnez du sens au travail de vos équipes.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#audit" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-white bg-primary rounded-full shadow-lg shadow-teal-500/25 hover:bg-teal-700 hover:-translate-y-0.5 transition-all">
+                            Démarrer l'audit gratuit
+                        </a>
+                        <a href="#use-cases" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-slate-700 bg-white border border-slate-200 rounded-full hover:bg-slate-50 hover:border-slate-300 transition-all">
+                            <iconify-icon icon="solar:play-circle-linear" class="mr-2 text-xl"></iconify-icon>
+                            Voir la démo
+                        </a>
+                    </div>
+                </div>
+
+                <div class="relative lg:h-[500px] flex items-center justify-center">
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-teal-50 via-blue-50 to-white rounded-full blur-3xl opacity-60 -z-10"></div>
+                    <!-- Illustration hero — SVG inline IA / Automatisation -->
+                    <svg viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-md drop-shadow-xl hover:scale-[1.02] transition-transform duration-500">
+                        <!-- Background shapes -->
+                        <circle cx="250" cy="200" r="160" fill="#CCFBF1" opacity="0.4"/>
+                        <circle cx="250" cy="200" r="120" fill="#CCFBF1" opacity="0.3"/>
+
+                        <!-- Central brain/AI node -->
+                        <g transform="translate(250,180)">
+                            <!-- Brain outline -->
+                            <path d="M-35,-40 C-35,-60 -15,-70 0,-70 C15,-70 35,-60 35,-40 C50,-35 55,-15 50,5 C55,20 45,40 30,45 C25,55 10,60 0,60 C-10,60 -25,55 -30,45 C-45,40 -55,20 -50,5 C-55,-15 -50,-35 -35,-40Z" fill="#0D9488" opacity="0.15" stroke="#0D9488" stroke-width="2"/>
+                            <!-- Neural connections inside -->
+                            <circle cx="-15" cy="-20" r="5" fill="#0D9488" opacity="0.6"/>
+                            <circle cx="15" cy="-25" r="4" fill="#0D9488" opacity="0.6"/>
+                            <circle cx="0" cy="0" r="6" fill="#0D9488"/>
+                            <circle cx="-20" cy="15" r="4" fill="#0D9488" opacity="0.6"/>
+                            <circle cx="18" cy="10" r="5" fill="#0D9488" opacity="0.6"/>
+                            <circle cx="0" cy="30" r="4" fill="#0D9488" opacity="0.6"/>
+                            <line x1="-15" y1="-20" x2="0" y2="0" stroke="#0D9488" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="15" y1="-25" x2="0" y2="0" stroke="#0D9488" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="-20" y1="15" x2="0" y2="0" stroke="#0D9488" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="18" y1="10" x2="0" y2="0" stroke="#0D9488" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="0" y1="30" x2="0" y2="0" stroke="#0D9488" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="-15" y1="-20" x2="15" y2="-25" stroke="#0D9488" stroke-width="1" opacity="0.3"/>
+                            <line x1="-20" y1="15" x2="0" y2="30" stroke="#0D9488" stroke-width="1" opacity="0.3"/>
+                            <line x1="18" y1="10" x2="0" y2="30" stroke="#0D9488" stroke-width="1" opacity="0.3"/>
+                        </g>
+
+                        <!-- Orbiting data points with pulse animation -->
+                        <g>
+                            <circle cx="250" cy="180" r="100" fill="none" stroke="#0D9488" stroke-width="1" stroke-dasharray="6 4" opacity="0.25">
+                                <animateTransform attributeName="transform" type="rotate" from="0 250 180" to="360 250 180" dur="30s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="250" cy="180" r="140" fill="none" stroke="#0D9488" stroke-width="1" stroke-dasharray="4 6" opacity="0.15">
+                                <animateTransform attributeName="transform" type="rotate" from="360 250 180" to="0 250 180" dur="45s" repeatCount="indefinite"/>
+                            </circle>
+                        </g>
+
+                        <!-- Floating cards representing use cases -->
+                        <!-- Card 1: Pharmacy -->
+                        <g transform="translate(90,90)">
+                            <rect x="0" y="0" width="85" height="60" rx="12" fill="white" stroke="#10B981" stroke-width="1.5" filter="url(#shadow)"/>
+                            <rect x="12" y="12" width="24" height="24" rx="6" fill="#ECFDF5"/>
+                            <text x="24" y="29" text-anchor="middle" font-size="14" fill="#10B981">+</text>
+                            <rect x="44" y="16" width="28" height="4" rx="2" fill="#E2E8F0"/>
+                            <rect x="44" y="26" width="20" height="4" rx="2" fill="#E2E8F0"/>
+                            <text x="14" y="50" font-size="7" fill="#64748B" font-family="Inter,sans-serif">Pharmacie</text>
+                            <animateTransform attributeName="transform" type="translate" values="90,90;90,80;90,90" dur="4s" repeatCount="indefinite"/>
+                        </g>
+
+                        <!-- Card 2: Press -->
+                        <g transform="translate(330,70)">
+                            <rect x="0" y="0" width="85" height="60" rx="12" fill="white" stroke="#3B82F6" stroke-width="1.5" filter="url(#shadow)"/>
+                            <rect x="12" y="12" width="24" height="24" rx="6" fill="#EFF6FF"/>
+                            <text x="24" y="28" text-anchor="middle" font-size="12" fill="#3B82F6">A</text>
+                            <rect x="44" y="16" width="28" height="4" rx="2" fill="#E2E8F0"/>
+                            <rect x="44" y="26" width="20" height="4" rx="2" fill="#E2E8F0"/>
+                            <text x="14" y="50" font-size="7" fill="#64748B" font-family="Inter,sans-serif">Presse</text>
+                            <animateTransform attributeName="transform" type="translate" values="330,70;330,62;330,70" dur="5s" repeatCount="indefinite"/>
+                        </g>
+
+                        <!-- Card 3: Airbnb -->
+                        <g transform="translate(350,260)">
+                            <rect x="0" y="0" width="85" height="60" rx="12" fill="white" stroke="#F97316" stroke-width="1.5" filter="url(#shadow)"/>
+                            <rect x="12" y="12" width="24" height="24" rx="6" fill="#FFF7ED"/>
+                            <text x="24" y="29" text-anchor="middle" font-size="12" fill="#F97316">&#x2302;</text>
+                            <rect x="44" y="16" width="28" height="4" rx="2" fill="#E2E8F0"/>
+                            <rect x="44" y="26" width="20" height="4" rx="2" fill="#E2E8F0"/>
+                            <text x="14" y="50" font-size="7" fill="#64748B" font-family="Inter,sans-serif">Airbnb</text>
+                            <animateTransform attributeName="transform" type="translate" values="350,260;350,268;350,260" dur="4.5s" repeatCount="indefinite"/>
+                        </g>
+
+                        <!-- Connection lines from brain to cards -->
+                        <line x1="200" y1="160" x2="155" y2="120" stroke="#0D9488" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.3">
+                            <animate attributeName="stroke-dashoffset" from="0" to="14" dur="2s" repeatCount="indefinite"/>
+                        </line>
+                        <line x1="300" y1="155" x2="350" y2="110" stroke="#0D9488" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.3">
+                            <animate attributeName="stroke-dashoffset" from="0" to="14" dur="2s" repeatCount="indefinite"/>
+                        </line>
+                        <line x1="290" y1="220" x2="370" y2="270" stroke="#0D9488" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.3">
+                            <animate attributeName="stroke-dashoffset" from="0" to="14" dur="2s" repeatCount="indefinite"/>
+                        </line>
+
+                        <!-- Bottom bar chart / growth indicator -->
+                        <g transform="translate(75,280)">
+                            <rect x="0" y="40" width="16" height="30" rx="3" fill="#0D9488" opacity="0.2"/>
+                            <rect x="22" y="25" width="16" height="45" rx="3" fill="#0D9488" opacity="0.35"/>
+                            <rect x="44" y="15" width="16" height="55" rx="3" fill="#0D9488" opacity="0.5"/>
+                            <rect x="66" y="5" width="16" height="65" rx="3" fill="#0D9488" opacity="0.7"/>
+                            <!-- Arrow up -->
+                            <path d="M95,30 L105,10 L115,30" stroke="#0D9488" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                            <line x1="105" y1="10" x2="105" y2="55" stroke="#0D9488" stroke-width="2.5" stroke-linecap="round"/>
+                        </g>
+
+                        <!-- Sparkle / stars -->
+                        <g fill="#0D9488" opacity="0.5">
+                            <circle cx="140" cy="160" r="2.5">
+                                <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="370" cy="190" r="2">
+                                <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="310" cy="320" r="2.5">
+                                <animate attributeName="opacity" values="0.4;1;0.4" dur="2.5s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="180" cy="300" r="1.5">
+                                <animate attributeName="opacity" values="0.5;0.9;0.5" dur="1.8s" repeatCount="indefinite"/>
+                            </circle>
+                        </g>
+
+                        <!-- SVG filter for card shadows -->
+                        <defs>
+                            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0F172A" flood-opacity="0.08"/>
+                            </filter>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. USE CASES -->
+    <section id="use-cases" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+                <h2 class="text-3xl lg:text-4xl font-semibold text-slate-900 tracking-tight mb-4">Solutions sectorielles</h2>
+                <p class="text-slate-500">Des agents IA pré-entraînés pour les défis spécifiques de votre métier.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Pharmacies -->
+                <div class="group bg-white rounded-3xl p-8 border border-slate-100 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 reveal">
+                    <div class="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                        <iconify-icon icon="solar:medical-kit-linear" width="24"></iconify-icon>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-3 tracking-tight">Pharmacies</h3>
+                    <p class="text-slate-500 text-sm mb-6 min-h-[40px]">Vérification automatique des livraisons et gestion des stocks.</p>
+                    <div class="space-y-3 pt-6 border-t border-slate-100">
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-slate-400">Gain de temps</span>
+                            <span class="font-medium text-emerald-600">3-4h / semaine</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-slate-400">Fiabilité</span>
+                            <span class="font-medium text-emerald-600">99%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Éditeurs de presse -->
+                <div class="group bg-white rounded-3xl p-8 border border-slate-100 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 reveal">
+                    <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                        <iconify-icon icon="solar:document-text-linear" width="24"></iconify-icon>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-3 tracking-tight">Éditeurs de presse</h3>
+                    <p class="text-slate-500 text-sm mb-6 min-h-[40px]">Prospection automatique des annonceurs et qualification.</p>
+                    <div class="space-y-3 pt-6 border-t border-slate-100">
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-slate-400">Croissance</span>
+                            <span class="font-medium text-blue-600">+30% CA Pub</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-slate-400">Impact</span>
+                            <span class="font-medium text-blue-600">ROI Mesurable</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conciergeries Airbnb -->
+                <div class="group bg-white rounded-3xl p-8 border border-slate-100 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 reveal">
+                    <div class="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center text-orange-600 mb-6 group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                        <iconify-icon icon="solar:key-linear" width="24"></iconify-icon>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-3 tracking-tight">Conciergeries Airbnb</h3>
+                    <p class="text-slate-500 text-sm mb-6 min-h-[40px]">Agent IA de réponse automatique aux voyageurs 24/7.</p>
+                    <div class="space-y-3 pt-6 border-t border-slate-100">
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-slate-400">Automatisation</span>
+                            <span class="font-medium text-orange-600">90% des questions</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-slate-400">Disponibilité</span>
+                            <span class="font-medium text-orange-600">24/7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. HOW IT WORKS -->
+    <section id="approach" class="py-24 bg-slate-50/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16 reveal">
+                <h2 class="text-3xl lg:text-4xl font-semibold text-slate-900 tracking-tight mb-4">De l'idée à l'automatisation</h2>
+                <p class="text-slate-500">Un processus simple et transparent.</p>
+            </div>
+
+            <div class="relative">
+                <div class="hidden lg:block absolute top-12 left-0 w-full h-0.5 border-t-2 border-dashed border-slate-200 z-0"></div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                    <div class="relative z-10 bg-slate-50 lg:bg-transparent pt-4 lg:pt-0 reveal">
+                        <div class="w-24 h-24 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center text-primary mb-6 mx-auto lg:mx-0">
+                            <span class="text-2xl font-semibold">1</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-900 mb-2 text-center lg:text-left">Audit gratuit</h4>
+                        <p class="text-sm text-slate-500 leading-relaxed text-center lg:text-left">Analyse de vos processus actuels pour identifier les gisements de productivité.</p>
+                    </div>
+                    <div class="relative z-10 bg-slate-50 lg:bg-transparent pt-4 lg:pt-0 reveal">
+                        <div class="w-24 h-24 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center text-primary mb-6 mx-auto lg:mx-0">
+                            <span class="text-2xl font-semibold">2</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-900 mb-2 text-center lg:text-left">Solution sur mesure</h4>
+                        <p class="text-sm text-slate-500 leading-relaxed text-center lg:text-left">Développement et configuration de votre agent IA personnalisé.</p>
+                    </div>
+                    <div class="relative z-10 bg-slate-50 lg:bg-transparent pt-4 lg:pt-0 reveal">
+                        <div class="w-24 h-24 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center text-primary mb-6 mx-auto lg:mx-0">
+                            <span class="text-2xl font-semibold">3</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-900 mb-2 text-center lg:text-left">Formation</h4>
+                        <p class="text-sm text-slate-500 leading-relaxed text-center lg:text-left">Onboarding de vos équipes pour une prise en main immédiate.</p>
+                    </div>
+                    <div class="relative z-10 bg-slate-50 lg:bg-transparent pt-4 lg:pt-0 reveal">
+                        <div class="w-24 h-24 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center text-primary mb-6 mx-auto lg:mx-0">
+                            <span class="text-2xl font-semibold">4</span>
+                        </div>
+                        <h4 class="text-lg font-semibold text-slate-900 mb-2 text-center lg:text-left">3 mois de support</h4>
+                        <p class="text-sm text-slate-500 leading-relaxed text-center lg:text-left">Suivi continu, ajustements et optimisation des performances.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. BENEFITS -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div class="order-2 lg:order-1 reveal">
+                    <!-- Illustration bénéfices — SVG inline Productivité / Shield -->
+                    <svg viewBox="0 0 460 420" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-md mx-auto drop-shadow-2xl">
+                        <!-- Fond circle -->
+                        <circle cx="230" cy="210" r="180" fill="#F0FDFA" opacity="0.6"/>
+
+                        <!-- Central shield / trust -->
+                        <g transform="translate(175,100)">
+                            <path d="M55,0 L110,25 L110,75 C110,120 55,150 55,150 C55,150 0,120 0,75 L0,25 Z" fill="#0D9488" opacity="0.1" stroke="#0D9488" stroke-width="2"/>
+                            <path d="M55,15 L100,35 L100,75 C100,112 55,138 55,138 C55,138 10,112 10,75 L10,35 Z" fill="white" stroke="#0D9488" stroke-width="1.5"/>
+                            <!-- Checkmark inside shield -->
+                            <path d="M35,75 L50,90 L78,55" stroke="#0D9488" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                            <!-- RGPD label -->
+                            <text x="55" y="115" text-anchor="middle" font-size="10" fill="#0D9488" font-family="Inter,sans-serif" font-weight="600">RGPD</text>
+                        </g>
+
+                        <!-- Floating feature badges -->
+                        <!-- Badge 1: Speed / Clock -->
+                        <g transform="translate(30,80)">
+                            <rect x="0" y="0" width="110" height="50" rx="25" fill="white" stroke="#0D9488" stroke-width="1.5" filter="url(#shadowBenefits)"/>
+                            <circle cx="30" cy="25" r="14" fill="#CCFBF1"/>
+                            <!-- Clock icon -->
+                            <circle cx="30" cy="25" r="8" fill="none" stroke="#0D9488" stroke-width="1.5"/>
+                            <line x1="30" y1="25" x2="30" y2="19" stroke="#0D9488" stroke-width="1.5" stroke-linecap="round"/>
+                            <line x1="30" y1="25" x2="35" y2="25" stroke="#0D9488" stroke-width="1.5" stroke-linecap="round"/>
+                            <text x="60" y="22" font-size="8" fill="#0F172A" font-family="Inter,sans-serif" font-weight="600">Rapide</text>
+                            <text x="60" y="33" font-size="7" fill="#64748B" font-family="Inter,sans-serif">&lt; 3 semaines</text>
+                            <animateTransform attributeName="transform" type="translate" values="30,80;30,72;30,80" dur="5s" repeatCount="indefinite"/>
+                        </g>
+
+                        <!-- Badge 2: ROI -->
+                        <g transform="translate(320,120)">
+                            <rect x="0" y="0" width="110" height="50" rx="25" fill="white" stroke="#0D9488" stroke-width="1.5" filter="url(#shadowBenefits)"/>
+                            <circle cx="30" cy="25" r="14" fill="#CCFBF1"/>
+                            <!-- Chart icon -->
+                            <polyline points="22,32 27,24 32,28 38,18" stroke="#0D9488" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                            <text x="60" y="22" font-size="8" fill="#0F172A" font-family="Inter,sans-serif" font-weight="600">ROI 3x</text>
+                            <text x="60" y="33" font-size="7" fill="#64748B" font-family="Inter,sans-serif">Mesurable</text>
+                            <animateTransform attributeName="transform" type="translate" values="320,120;320,128;320,120" dur="4.5s" repeatCount="indefinite"/>
+                        </g>
+
+                        <!-- Badge 3: Personnalisé / Gear -->
+                        <g transform="translate(50,280)">
+                            <rect x="0" y="0" width="120" height="50" rx="25" fill="white" stroke="#0D9488" stroke-width="1.5" filter="url(#shadowBenefits)"/>
+                            <circle cx="30" cy="25" r="14" fill="#CCFBF1"/>
+                            <!-- Gear icon simplified -->
+                            <circle cx="30" cy="25" r="5" fill="none" stroke="#0D9488" stroke-width="1.5"/>
+                            <circle cx="30" cy="25" r="9" fill="none" stroke="#0D9488" stroke-width="1.5" stroke-dasharray="3 3"/>
+                            <text x="60" y="22" font-size="8" fill="#0F172A" font-family="Inter,sans-serif" font-weight="600">Sur mesure</text>
+                            <text x="60" y="33" font-size="7" fill="#64748B" font-family="Inter,sans-serif">100% adapté</text>
+                            <animateTransform attributeName="transform" type="translate" values="50,280;50,288;50,280" dur="4s" repeatCount="indefinite"/>
+                        </g>
+
+                        <!-- Badge 4: Support -->
+                        <g transform="translate(300,290)">
+                            <rect x="0" y="0" width="120" height="50" rx="25" fill="white" stroke="#0D9488" stroke-width="1.5" filter="url(#shadowBenefits)"/>
+                            <circle cx="30" cy="25" r="14" fill="#CCFBF1"/>
+                            <!-- Headset icon simplified -->
+                            <path d="M22,28 C22,21 26,17 30,17 C34,17 38,21 38,28" stroke="#0D9488" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                            <rect x="20" y="26" width="5" height="8" rx="2" fill="#0D9488" opacity="0.4"/>
+                            <rect x="35" y="26" width="5" height="8" rx="2" fill="#0D9488" opacity="0.4"/>
+                            <text x="60" y="22" font-size="8" fill="#0F172A" font-family="Inter,sans-serif" font-weight="600">Support</text>
+                            <text x="60" y="33" font-size="7" fill="#64748B" font-family="Inter,sans-serif">3 mois inclus</text>
+                            <animateTransform attributeName="transform" type="translate" values="300,290;300,282;300,290" dur="5.5s" repeatCount="indefinite"/>
+                        </g>
+
+                        <!-- Connecting dotted arcs from shield to badges -->
+                        <path d="M185,170 Q100,130 120,105" stroke="#0D9488" stroke-width="1" stroke-dasharray="4 3" fill="none" opacity="0.25"/>
+                        <path d="M280,170 Q360,150 340,145" stroke="#0D9488" stroke-width="1" stroke-dasharray="4 3" fill="none" opacity="0.25"/>
+                        <path d="M200,250 Q130,270 140,290" stroke="#0D9488" stroke-width="1" stroke-dasharray="4 3" fill="none" opacity="0.25"/>
+                        <path d="M270,250 Q330,270 330,290" stroke="#0D9488" stroke-width="1" stroke-dasharray="4 3" fill="none" opacity="0.25"/>
+
+                        <!-- Sparkles -->
+                        <circle cx="160" cy="60" r="2" fill="#0D9488" opacity="0.4">
+                            <animate attributeName="opacity" values="0.2;0.8;0.2" dur="3s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="400" cy="200" r="2.5" fill="#0D9488" opacity="0.3">
+                            <animate attributeName="opacity" values="0.3;0.9;0.3" dur="2.5s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="100" cy="350" r="2" fill="#0D9488" opacity="0.4">
+                            <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+
+                        <defs>
+                            <filter id="shadowBenefits" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#0F172A" flood-opacity="0.07"/>
+                            </filter>
+                        </defs>
+                    </svg>
+                </div>
+
+                <div class="order-1 lg:order-2 reveal">
+                    <h2 class="text-3xl lg:text-4xl font-semibold text-slate-900 tracking-tight mb-8">Pourquoi choisir Polaris IA ?</h2>
+
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center mt-0.5 flex-shrink-0">
+                                <iconify-icon icon="solar:check-circle-linear" class="text-primary text-sm"></iconify-icon>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium text-slate-900 mb-1">Solutions personnalisées</h4>
+                                <p class="text-slate-500 text-sm">Pas de solution générique. Nous adaptons l'IA à votre réalité métier et vos outils existants.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center mt-0.5 flex-shrink-0">
+                                <iconify-icon icon="solar:check-circle-linear" class="text-primary text-sm"></iconify-icon>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium text-slate-900 mb-1">Déploiement rapide</h4>
+                                <p class="text-slate-500 text-sm">Des résultats concrets en moins de 3 semaines, sans perturber votre activité.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center mt-0.5 flex-shrink-0">
+                                <iconify-icon icon="solar:check-circle-linear" class="text-primary text-sm"></iconify-icon>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium text-slate-900 mb-1">Conformité RGPD</h4>
+                                <p class="text-slate-500 text-sm">Vos données restent vos données. Sécurité et confidentialité garanties (Hébergement France/EU).</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center mt-0.5 flex-shrink-0">
+                                <iconify-icon icon="solar:check-circle-linear" class="text-primary text-sm"></iconify-icon>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium text-slate-900 mb-1">ROI Mesurable</h4>
+                                <p class="text-slate-500 text-sm">Tableaux de bord de performance inclus pour suivre vos économies en temps réel.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. STATS -->
+    <section id="results" class="py-20 bg-[#0F172A] text-white reveal">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <div class="p-4">
+                    <div class="text-4xl lg:text-5xl font-semibold mb-2 text-primary tracking-tight counter" data-target="+5h">+5h</div>
+                    <div class="text-sm lg:text-base text-slate-400 font-medium">Gagnées par semaine</div>
+                </div>
+                <div class="p-4 border-l border-slate-800/50">
+                    <div class="text-4xl lg:text-5xl font-semibold mb-2 text-primary tracking-tight counter" data-target="98%">98%</div>
+                    <div class="text-sm lg:text-base text-slate-400 font-medium">Taux de satisfaction</div>
+                </div>
+                <div class="p-4 border-l border-slate-800/50">
+                    <div class="text-4xl lg:text-5xl font-semibold mb-2 text-primary tracking-tight counter" data-target="3x">3x</div>
+                    <div class="text-sm lg:text-base text-slate-400 font-medium">ROI moyen an 1</div>
+                </div>
+                <div class="p-4 border-l border-slate-800/50">
+                    <div class="text-4xl lg:text-5xl font-semibold mb-2 text-primary tracking-tight counter" data-target="15j">15j</div>
+                    <div class="text-sm lg:text-base text-slate-400 font-medium">Temps de déploiement</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. CTA -->
+    <section id="audit" class="py-32 bg-slate-50">
+        <div class="max-w-4xl mx-auto px-6 text-center reveal">
+            <h2 class="text-3xl lg:text-5xl font-semibold text-slate-900 tracking-tight mb-6">Prêt à gagner du temps grâce à l'IA ?</h2>
+            <p class="text-lg text-slate-500 mb-10">Rejoignez les entreprises qui automatisent leur futur. L'audit est gratuit et sans engagement.</p>
+
+            <form id="audit-form" class="max-w-md mx-auto">
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <input type="email" id="email-input" placeholder="votre@email.com" class="flex-1 bg-white px-6 py-4 rounded-full border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent shadow-sm transition-all" required>
+                    <button type="submit" class="px-8 py-4 bg-primary text-white font-medium rounded-full hover:bg-teal-700 transition-colors shadow-lg shadow-teal-500/30 flex items-center justify-center gap-2">
+                        Audit gratuit
+                        <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                    </button>
+                </div>
+                <p class="text-xs text-slate-400 mt-4">Nous respectons vos données. Pas de spam.</p>
+                <!-- Message de confirmation -->
+                <div id="form-success" class="hidden mt-4 p-4 bg-teal-50 border border-teal-200 rounded-2xl text-teal-800 text-sm font-medium">
+                    ✓ Merci ! Nous vous recontactons sous 24h pour votre audit gratuit.
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- 9. FOOTER -->
+    <footer class="bg-dark text-slate-400 py-16 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                            <span class="text-white font-semibold text-sm">P</span>
+                        </div>
+                        <span class="text-white font-medium tracking-tight">Polaris IA</span>
+                    </div>
+                    <p class="text-sm leading-relaxed">Accélérateur de croissance pour PME grâce à l'automatisation intelligente.</p>
+                </div>
+
+                <div>
+                    <h5 class="text-white font-medium mb-4">Entreprise</h5>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-primary transition-colors">À propos</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Carrières</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-white font-medium mb-4">Légal</h5>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-primary transition-colors">Mentions légales</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Confidentialité</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">CGV</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-white font-medium mb-4">Contact</h5>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center gap-2"><iconify-icon icon="solar:letter-linear"></iconify-icon> hello@polaris-ia.com</li>
+                        <li class="flex items-center gap-2"><iconify-icon icon="solar:map-point-linear"></iconify-icon> Paris, France</li>
+                    </ul>
+                    <div class="flex gap-4 mt-4">
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn"><iconify-icon icon="solar:brand-linkedin-linear" width="20"></iconify-icon></a>
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Twitter"><iconify-icon icon="solar:brand-twitter-linear" width="20"></iconify-icon></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+                <p>© 2025 Polaris IA. Tous droits réservés.</p>
+                <div class="flex items-center gap-1">
+                    <span>Conçu avec</span>
+                    <iconify-icon icon="solar:heart-bold" class="text-red-500"></iconify-icon>
+                    <span>en France</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- 1. Rotating hero text (smooth loop) ---
+        const container = document.getElementById('rotating-hero');
+        if (container) {
+            const items = container.querySelectorAll('.rotating-item');
+            let currentIndex = 0;
+            const totalItems = items.length;
+            const DISPLAY_DURATION = 3200;  // time each phrase stays visible
+            const TRANSITION_MS = 600;       // matches CSS transition duration
+
+            function rotateNext() {
+                const current = items[currentIndex];
+                current.classList.remove('active');
+                current.classList.add('exit');
+
+                // Clean up exit class after transition completes
+                setTimeout(() => {
+                    current.classList.remove('exit');
+                }, TRANSITION_MS);
+
+                // Advance index
+                currentIndex = (currentIndex + 1) % totalItems;
+                items[currentIndex].classList.add('active');
+            }
+
+            setInterval(rotateNext, DISPLAY_DURATION);
+        }
+
+        // --- 2. Mobile menu toggle ---
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            iconOpen.classList.toggle('hidden');
+            iconClose.classList.toggle('hidden');
+        });
+
+        // Close menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                iconOpen.classList.remove('hidden');
+                iconClose.classList.add('hidden');
+            });
+        });
+
+        // --- 3. Scroll reveal animations ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), i * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // --- 4. Navbar shadow on scroll ---
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+
+        // --- 5. Form submission ---
+        const form = document.getElementById('audit-form');
+        const formSuccess = document.getElementById('form-success');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email-input').value;
+
+            // TODO: Remplacer par l'envoi réel (webhook, API, etc.)
+            // Exemple: fetch('https://votre-api.com/audit', { method: 'POST', body: JSON.stringify({ email }) })
+
+            console.log('Audit demandé pour:', email);
+            form.querySelector('button[type="submit"]').style.display = 'none';
+            form.querySelector('input[type="email"]').style.display = 'none';
+            formSuccess.classList.remove('hidden');
+        });
+    });
+    </script>
+
+</body>
+</html>
