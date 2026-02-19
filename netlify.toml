@@ -1,0 +1,10 @@
+[build]
+  # Pas de commande de build nécessaire pour un site HTML statique
+  command = ""
+  # Le répertoire à publier est la racine du projet
+  publish = "."
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
