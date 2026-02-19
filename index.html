@@ -32,33 +32,29 @@
             border-bottom: 1px solid rgba(0,0,0,0.05);
         }
         /* Rotating hero text */
-        .rotating-container {
-            display: block;
+        .rotating-container-inline, .rotating-container-inline-2 {
+            display: inline-block;
             position: relative;
-            height: 3.5em;
-            overflow: hidden;
-            width: 100%;
+            vertical-align: baseline;
         }
-        @media (min-width: 1024px) {
-            .rotating-container { height: 3.2em; }
-        }
-        .rotating-item {
-            position: absolute;
-            left: 0; top: 0; width: 100%;
+        .rotating-item, .rotating-item-2 {
+            display: inline-block;
             opacity: 0;
-            transform: translateY(40px);
+            position: absolute;
+            left: 0;
+            transform: translateY(20px);
             transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: opacity, transform;
-            pointer-events: none;
+            white-space: nowrap;
         }
-        .rotating-item.active {
+        .rotating-item.active, .rotating-item-2.active {
             opacity: 1;
+            position: relative;
             transform: translateY(0);
-            pointer-events: auto;
         }
-        .rotating-item.exit {
+        .rotating-item.exit, .rotating-item-2.exit {
             opacity: 0;
-            transform: translateY(-40px);
+            transform: translateY(-20px);
         }
         /* Scroll reveal */
         .reveal {
@@ -87,8 +83,15 @@
     <nav id="navbar" class="fixed w-full z-50 glass-nav transition-all duration-300 top-0">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <a href="#" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-teal-500/20 transition-transform group-hover:scale-105">
-                    <span class="text-white font-semibold text-xl tracking-tighter">P</span>
+                <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-teal-500/20 transition-transform group-hover:scale-105 relative overflow-hidden">
+                    <svg viewBox="0 0 40 40" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Compass circle arcs -->
+                        <path d="M 8 20 A 12 12 0 0 1 20 8" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+                        <path d="M 20 32 A 12 12 0 0 1 32 20" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+                        <!-- North star/needle -->
+                        <path d="M 20 12 L 17 20 L 20 28 L 23 20 Z" fill="white" opacity="0.9"/>
+                        <circle cx="20" cy="20" r="2" fill="white"/>
+                    </svg>
                 </div>
                 <span class="text-slate-900 font-semibold text-lg tracking-tight">Polaris IA</span>
             </a>
@@ -134,36 +137,12 @@
                     </div>
 
                     <h1 class="text-4xl lg:text-6xl font-semibold text-slate-900 leading-[1.15] tracking-tight mb-2">
-                        Nous aidons les
+                        Nous aidons les <span class="rotating-container-inline" id="rotating-hero" aria-live="polite">
+                            <span class="rotating-item active" data-index="0"><span class="text-primary">pharmaciens</span></span><span class="rotating-item" data-index="1"><span class="text-primary">éditeurs de presse</span></span><span class="rotating-item" data-index="2"><span class="text-primary">conciergeries</span></span><span class="rotating-item" data-index="3"><span class="text-primary">comptables</span></span><span class="rotating-item" data-index="4"><span class="text-primary">agences immo</span></span><span class="rotating-item" data-index="5"><span class="text-primary">e-commerçants</span></span></span>
                     </h1>
-                    <div class="rotating-container text-4xl lg:text-6xl font-semibold mb-2" id="rotating-hero" aria-live="polite">
-                        <span class="rotating-item active" data-index="0">
-                            <span class="text-primary mr-2">pharmaciens</span>
-                            <span class="text-slate-900 text-4xl lg:text-6xl font-semibold">à</span> <span class="text-primary text-4xl lg:text-6xl font-semibold">se libérer 1h/jour</span>
-                        </span>
-                        <span class="rotating-item" data-index="1">
-                            <span class="text-primary mr-2">éditeurs de presse</span>
-                            <span class="text-slate-900 text-4xl lg:text-6xl font-semibold">à</span> <span class="text-primary text-4xl lg:text-6xl font-semibold">booster leur CA pub</span>
-                        </span>
-                        <span class="rotating-item" data-index="2">
-                            <span class="text-primary mr-2">conciergeries</span>
-                            <span class="text-slate-900 text-4xl lg:text-6xl font-semibold">à</span> <span class="text-primary text-4xl lg:text-6xl font-semibold">se libérer l'esprit</span>
-                        </span>
-                        <span class="rotating-item" data-index="3">
-                            <span class="text-primary mr-2">comptables</span>
-                            <span class="text-slate-900 text-4xl lg:text-6xl font-semibold">à</span> <span class="text-primary text-4xl lg:text-6xl font-semibold">automatiser la saisie</span>
-                        </span>
-                        <span class="rotating-item" data-index="4">
-                            <span class="text-primary mr-2">agences immo</span>
-                            <span class="text-slate-900 text-4xl lg:text-6xl font-semibold">à</span> <span class="text-primary text-4xl lg:text-6xl font-semibold">qualifier les leads</span>
-                        </span>
-                        <span class="rotating-item" data-index="5">
-                            <span class="text-primary mr-2">e-commerçants</span>
-                            <span class="text-slate-900 text-4xl lg:text-6xl font-semibold">à</span> <span class="text-primary text-4xl lg:text-6xl font-semibold">gérer le support</span>
-                        </span>
-                    </div>
-                    <p class="text-4xl lg:text-6xl font-semibold text-slate-900 leading-[1.15] tracking-tight mb-8">
-                        grâce à l'IA.
+                    <p class="text-4xl lg:text-6xl font-semibold leading-[1.15] tracking-tight mb-8">
+                        <span class="text-slate-900">à</span> <span class="rotating-container-inline-2" id="rotating-hero-2" aria-live="polite">
+                            <span class="rotating-item-2 active" data-index="0"><span class="text-primary">gagner du temps</span></span><span class="rotating-item-2" data-index="1"><span class="text-primary">booster leur CA</span></span><span class="rotating-item-2" data-index="2"><span class="text-primary">automatiser</span></span><span class="rotating-item-2" data-index="3"><span class="text-primary">se développer</span></span><span class="rotating-item-2" data-index="4"><span class="text-primary">croître</span></span><span class="rotating-item-2" data-index="5"><span class="text-primary">se libérer</span></span></span> <span class="text-slate-900">grâce à l'IA.</span>
                     </p>
 
                     <p class="text-lg text-slate-500 mb-10 leading-relaxed max-w-lg">
@@ -666,28 +645,39 @@
     <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-        // --- 1. Rotating hero text (smooth loop) ---
+        // --- 1. Rotating hero text (synchronized) ---
         const container = document.getElementById('rotating-hero');
-        if (container) {
+        const container2 = document.getElementById('rotating-hero-2');
+        
+        if (container && container2) {
             const items = container.querySelectorAll('.rotating-item');
+            const items2 = container2.querySelectorAll('.rotating-item-2');
             let currentIndex = 0;
             const totalItems = items.length;
             const DISPLAY_DURATION = 3200;  // time each phrase stays visible
             const TRANSITION_MS = 600;       // matches CSS transition duration
 
             function rotateNext() {
+                // Rotate first container
                 const current = items[currentIndex];
                 current.classList.remove('active');
                 current.classList.add('exit');
+                
+                // Rotate second container
+                const current2 = items2[currentIndex];
+                current2.classList.remove('active');
+                current2.classList.add('exit');
 
                 // Clean up exit class after transition completes
                 setTimeout(() => {
                     current.classList.remove('exit');
+                    current2.classList.remove('exit');
                 }, TRANSITION_MS);
 
                 // Advance index
                 currentIndex = (currentIndex + 1) % totalItems;
                 items[currentIndex].classList.add('active');
+                items2[currentIndex].classList.add('active');
             }
 
             setInterval(rotateNext, DISPLAY_DURATION);
