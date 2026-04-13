@@ -1,754 +1,448 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Polaris IA — Automatisation intelligente pour PME & TPE. Pharmacies, éditeurs de presse, conciergeries Airbnb : gagnez du temps grâce à l'IA.">
-    <title>Polaris IA - Automatisation pour PME</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230D9488'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='Inter,sans-serif' font-weight='600' font-size='20'>P</text></svg>">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script>
-    tailwind.config = {
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Polaris IA — Pilotage de marge en temps réel pour restaurateurs</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
         theme: {
-            extend: {
-                fontFamily: { sans: ['Inter', 'sans-serif'] },
-                colors: {
-                    primary: '#0D9488',
-                    primaryLight: '#CCFBF1',
-                    dark: '#0F172A',
-                },
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#dbe1ff",
+                    "surface-dim": "#d8dadc",
+                    "surface-tint": "#0053db",
+                    "tertiary-fixed": "#ffdbcd",
+                    "on-background": "#191c1e",
+                    "primary-container": "#2563eb",
+                    "secondary": "#495c95",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "inverse-primary": "#b4c5ff",
+                    "on-primary-container": "#eeefff",
+                    "inverse-on-surface": "#eff1f3",
+                    "primary-fixed": "#dbe1ff",
+                    "on-surface": "#191c1e",
+                    "inverse-surface": "#2d3133",
+                    "outline-variant": "#c3c6d7",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "tertiary": "#943700",
+                    "on-primary-fixed": "#00174b",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "secondary-container": "#acbfff",
+                    "on-secondary-fixed-variant": "#31447b",
+                    "on-error": "#ffffff",
+                    "primary": "#004ac6",
+                    "on-secondary-container": "#394c84",
+                    "surface-variant": "#e0e3e5",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed": "#00174b",
+                    "on-tertiary-fixed": "#360f00",
+                    "outline": "#737686",
+                    "surface-container-high": "#e6e8ea",
+                    "surface-container-highest": "#e0e3e5",
+                    "tertiary-container": "#bc4800",
+                    "surface-container": "#eceef0",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "surface-container-low": "#f2f4f6",
+                    "on-surface-variant": "#434655",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#b4c5ff",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-container": "#ffede6",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "background": "#f7f9fb",
+                    "primary-fixed-dim": "#b4c5ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Lexend"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
             }
-        }
-    }
+          },
+        },
+      }
     </script>
-    <style>
-        body { font-feature-settings: "cv11", "ss01"; }
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-        /* Rotating hero text */
-        .rotating-container-inline, .rotating-container-inline-2 {
-            display: inline-block;
-            position: relative;
-            vertical-align: baseline;
-        }
-        .rotating-item, .rotating-item-2 {
-            display: inline-block;
-            opacity: 0;
-            position: absolute;
-            left: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: opacity, transform;
-            white-space: nowrap;
-        }
-        .rotating-item.active, .rotating-item-2.active {
-            opacity: 1;
-            position: relative;
-            transform: translateY(0);
-        }
-        .rotating-item.exit, .rotating-item-2.exit {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-        /* Scroll reveal */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        /* Mobile menu */
-        .mobile-menu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-        .mobile-menu.open {
-            max-height: 300px;
-        }
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(20px);
+      }
+      .ambient-shadow {
+        box-shadow: 0px 4px 20px rgba(25, 28, 30, 0.04), 0px 10px 40px rgba(25, 28, 30, 0.02);
+      }
+      .macbook-shadow {
+        box-shadow: 0 50px 100px -20px rgba(0,0,0,0.25), 0 30px 60px -30px rgba(0,0,0,0.3);
+      }
     </style>
 </head>
-<body class="bg-white text-slate-600 font-sans antialiased selection:bg-teal-100 selection:text-teal-900">
-
-    <!-- 1. NAVBAR -->
-    <nav id="navbar" class="fixed w-full z-50 glass-nav transition-all duration-300 top-0">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-teal-500/20 transition-transform group-hover:scale-105 relative overflow-hidden">
-                    <svg viewBox="0 0 40 40" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Compass circle arcs -->
-                        <path d="M 8 20 A 12 12 0 0 1 20 8" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.8"/>
-                        <path d="M 32 20 A 12 12 0 0 1 20 32" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.8"/>
-                        <!-- North star/needle -->
-                        <path d="M 20 12 L 17 20 L 20 28 L 23 20 Z" fill="white" opacity="0.9"/>
-                        <circle cx="20" cy="20" r="2" fill="white"/>
-                    </svg>
-                </div>
-                <span class="text-slate-900 font-semibold text-lg tracking-tight">Polaris IA</span>
-            </a>
-            <div class="hidden md:flex items-center gap-8">
-                <a href="#use-cases" class="text-sm font-medium text-slate-500 hover:text-primary transition-colors">Cas d'usage</a>
-                <a href="cas-usages.html" class="text-sm font-medium text-slate-500 hover:text-primary transition-colors">Nos projets</a>
-                <a href="#approach" class="text-sm font-medium text-slate-500 hover:text-primary transition-colors">Notre approche</a>
-                <a href="#results" class="text-sm font-medium text-slate-500 hover:text-primary transition-colors">Résultats</a>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-white">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl border-b border-outline-variant/10 shadow-sm">
+<nav class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="text-2xl font-bold tracking-tighter text-slate-900 font-lexend">
+                Polaris IA
             </div>
-            <div class="flex items-center gap-4">
-                <a href="#audit" class="hidden md:inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-primary rounded-full shadow-md shadow-teal-500/20 hover:bg-teal-700 hover:shadow-lg transition-all">
-                    Audit gratuit
-                </a>
-                <button id="menu-toggle" class="md:hidden text-slate-500 hover:text-slate-700 transition-colors" aria-label="Menu">
-                    <iconify-icon icon="solar:hamburger-menu-linear" width="24" id="menu-icon-open"></iconify-icon>
-                    <iconify-icon icon="solar:close-circle-linear" width="24" class="hidden" id="menu-icon-close"></iconify-icon>
-                </button>
+<div class="hidden md:flex gap-10 items-center">
+<a class="text-slate-600 font-medium hover:text-primary transition-colors duration-300 font-lexend tracking-tight" href="#">Solutions</a>
+<a class="text-slate-600 font-medium hover:text-primary transition-colors duration-300 font-lexend tracking-tight" href="#">Pricing</a>
+<a class="text-slate-600 font-medium hover:text-primary transition-colors duration-300 font-lexend tracking-tight" href="#">Resources</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-slate-600 font-medium hover:text-slate-800 transition-all font-lexend tracking-tight">Login</button>
+<button class="bg-primary text-white px-6 py-2.5 rounded-full font-semibold shadow-sm hover:scale-95 transition-transform font-lexend tracking-tight">Try for free</button>
+</div>
+</nav>
+</header>
+<main class="pt-24 overflow-x-hidden">
+<!-- Hero Section -->
+<section class="relative px-8 pt-16 pb-32 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+<div class="lg:col-span-7 flex flex-col items-start text-left">
+<span class="text-primary font-bold tracking-widest mb-6 uppercase text-sm">L'intelligence au service du goût</span>
+<h1 class="font-headline text-[3.5rem] leading-[1.1] font-extrabold tracking-tighter text-on-surface mb-8">
+                    Nous aidons les restaurateurs à connaître leur <span class="text-primary italic">marge réelle</span> sur chaque plat — sans taper une seule ligne.
+                </h1>
+<p class="text-on-surface-variant text-xl leading-relaxed max-w-2xl mb-10">
+                    Déposez vos factures fournisseurs dans un dossier. Votre tableau de bord se remplit automatiquement avec vos coûts par produit, vos marges par formule de menu et l'évolution de vos achats. En temps réel.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="bg-primary text-white px-8 py-4 rounded-full font-bold text-lg ambient-shadow hover:scale-95 transition-all">Essayer gratuitement</button>
+<button class="bg-surface-container-high text-on-surface px-8 py-4 rounded-full font-bold text-lg hover:bg-surface-container-highest transition-all">Voir une démo</button>
+</div>
+</div>
+<div class="lg:col-span-5 relative">
+<div class="relative z-10 rounded-2xl overflow-hidden ambient-shadow">
+<img alt="Professional restaurateur in a modern kitchen" class="w-full object-cover aspect-square" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDq5Kbox9CFe2vnICXfvk8AfdN426KHJhae9rERVxdc9huJkDCc_sRRrzf1RYJ3Qn5DvlgKDNwFsMlC5ixaQ-bbn1FiS_rIT8_f8-qeGVN8yivNtnIKETuFt43WUBINxqL1yVB4oGweFt3tRsHGeQVVgTR_XS43pfKocmsDm9QonglBFYNA7CfAsH_-OlB4nGWVpQ0YeL8d7lMRyDv20iFP1UTOIgElOCTmdFRq7DfyTXkoZdKa_ybST4_u1w9OT1NmOjap9Vuy1oM"/>
+</div>
+<div class="absolute -bottom-10 -left-20 glass-card p-6 rounded-2xl ambient-shadow hidden lg:block border border-outline-variant/15">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface-variant">OPTIMISATION MARGE</p>
+<p class="text-lg font-bold text-primary">+12.4% cette semaine</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="bg-surface-container-low py-24 px-8">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-surface-container-lowest p-10 rounded-2xl ambient-shadow flex flex-col gap-4">
+<span class="material-symbols-outlined text-4xl text-primary" data-weight="fill">savings</span>
+<h3 class="text-4xl font-headline font-bold text-on-surface">3 à 6 points</h3>
+<p class="text-on-surface-variant font-medium">de food cost économisés grâce à la détection immédiate des hausses de prix fournisseurs.</p>
+</div>
+<div class="bg-surface-container-lowest p-10 rounded-2xl ambient-shadow flex flex-col gap-4">
+<span class="material-symbols-outlined text-4xl text-primary" data-weight="fill">schedule</span>
+<h3 class="text-4xl font-headline font-bold text-on-surface">15 à 30 h/mois</h3>
+<p class="text-on-surface-variant font-medium">de saisie manuelle supprimées. Plus de temps pour vos équipes et vos clients.</p>
+</div>
+<div class="bg-surface-container-lowest p-10 rounded-2xl ambient-shadow flex flex-col gap-4">
+<span class="material-symbols-outlined text-4xl text-primary" data-weight="fill">payments</span>
+<h3 class="text-4xl font-headline font-bold text-on-surface">30k à 70k €/an</h3>
+<p class="text-on-surface-variant font-medium">de rentabilité récupérable pour un établissement moyen réalisant 800k€ de CA.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- The Problem -->
+<section class="py-32 px-8 max-w-7xl mx-auto">
+<div class="grid lg:grid-cols-2 gap-24 items-center">
+<div>
+<h2 class="font-headline text-4xl lg:text-5xl font-bold tracking-tight mb-8">Aujourd'hui, piloter ses coûts en restaurant, c'est un <span class="text-error">cauchemar</span>.</h2>
+<div class="space-y-6">
+<div class="flex gap-4 p-6 rounded-2xl bg-error-container/20">
+<span class="material-symbols-outlined text-error" data-weight="fill">error</span>
+<p class="text-on-surface-variant">Factures papier qui s'accumulent et se perdent.</p>
+</div>
+<div class="flex gap-4 p-6 rounded-2xl bg-error-container/20">
+<span class="material-symbols-outlined text-error" data-weight="fill">error</span>
+<p class="text-on-surface-variant">Fichiers Excel complexes, jamais à jour, source d'erreurs.</p>
+</div>
+<div class="flex gap-4 p-6 rounded-2xl bg-error-container/20">
+<span class="material-symbols-outlined text-error" data-weight="fill">error</span>
+<p class="text-on-surface-variant">Hausse des prix fournisseurs invisible jusqu'au bilan comptable.</p>
+</div>
+</div>
+</div>
+<div class="bg-primary/5 p-12 rounded-3xl relative border border-primary/10">
+<h3 class="font-headline text-2xl font-bold mb-6 text-primary">La clarté Polaris IA</h3>
+<p class="text-lg text-on-surface-variant mb-8 italic">"Je ne savais pas que mon fournisseur de poisson avait augmenté de 15% le mois dernier. Avec Polaris, je l'ai vu en 24h et j'ai ajusté mon menu immédiatement."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-slate-300 overflow-hidden">
+<img alt="Chef Thomas Meyer" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDp4AFdUxMT7FEhtgZzxSuZlz2KiU1_bzmAbe4LsRribx0RN5KVLh3LeuoMRudDsYOH4vA41Ez7Rl5xiy8RRF1_omD-IRSzc_RAzNP9ABxkwgPGJXB5kG_6vN72jVUZhpXszqqzkmtUAwCaihZA4ZRz8W5zOHE71f9ADuJpgchEB00_P9-Y2EBFrobP45wZWFwFy9w_yNpfan3vXIX1tOooXTvkP5QK1bXvWi6PdO0BOcvTv26t-JfbSVkwCDjpSG_g_snHjCr6yz0"/>
+</div>
+<div>
+<p class="font-bold">Thomas Meyer</p>
+<p class="text-sm text-on-surface-variant">Chef Propriétaire, Le Jardin</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Updated How it Works Section -->
+<section class="py-32 px-8 bg-white">
+<div class="max-w-7xl mx-auto text-center">
+<h2 class="font-headline text-4xl lg:text-5xl font-bold tracking-tight mb-4">Fonctionnement en 3 étapes</h2>
+<p class="text-on-surface-variant text-xl mb-24 max-w-2xl mx-auto">Polaris s'occupe de tout, vous vous occupez de votre cuisine.</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-16 relative">
+<!-- Progress Line (Desktop) -->
+<div class="hidden md:block absolute top-12 left-[15%] right-[15%] h-px bg-outline-variant/30 z-0"></div>
+<!-- Step 1 -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-8 border-4 border-white shadow-sm">
+<span class="text-primary font-bold text-2xl font-headline">1</span>
+</div>
+<h4 class="text-2xl font-bold mb-4 font-headline">Déposez vos factures</h4>
+<p class="text-on-surface-variant max-w-xs mx-auto leading-relaxed">Importez vos PDF ou prenez une photo. Glissez-déposez, c'est tout ce qu'on vous demande.</p>
+</div>
+<!-- Step 2 -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-8 border-4 border-white shadow-sm">
+<span class="text-primary font-bold text-2xl font-headline">2</span>
+</div>
+<h4 class="text-2xl font-bold mb-4 font-headline">L'IA analyse tout</h4>
+<p class="text-on-surface-variant max-w-xs mx-auto leading-relaxed">Notre intelligence artificielle extrait chaque ligne, vérifie les prix et standardise les unités.</p>
+</div>
+<!-- Step 3 -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-8 border-4 border-white shadow-sm">
+<span class="text-primary font-bold text-2xl font-headline">3</span>
+</div>
+<h4 class="text-2xl font-bold mb-4 font-headline">Pilotez en direct</h4>
+<p class="text-on-surface-variant max-w-xs mx-auto leading-relaxed">Vos fiches techniques se mettent à jour. Alerte immédiate si un fournisseur augmente ses prix.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Updated Cockpit Section -->
+<section class="py-32 px-8 bg-surface-container-low overflow-hidden">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-24">
+<h2 class="font-headline text-4xl lg:text-5xl font-bold tracking-tight mb-4">Un cockpit complet pour votre rentabilité</h2>
+<p class="text-on-surface-variant text-xl max-w-3xl mx-auto">Visualisez instantanément vos performances et agissez là où ça compte, sur une interface conçue pour la clarté.</p>
+</div>
+<div class="relative flex flex-col gap-32">
+<!-- Dashboard Visual 1 -->
+<div class="grid lg:grid-cols-2 gap-16 items-center">
+<div class="order-2 lg:order-1">
+<div class="relative">
+<!-- Premium MacBook Mockup Wrap -->
+<div class="relative rounded-t-xl bg-slate-800 p-2 pt-3 macbook-shadow border border-slate-700">
+<div class="absolute top-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-slate-600"></div>
+<div class="overflow-hidden rounded-sm bg-white aspect-[16/10]">
+<img alt="Dashboard Analysis View" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0uj8P_ObYgjjIGmOvBUqWqvhVytS6YR7_HH8XJnW8i7mGgQs_86-XNCMvQ8Q6cX2miBvsoWMzlFNoz99SjMCQIL08fimvRRbNSzcR46BiAE_oXFUXqzv7u-sZxkDLrr3sJWGROgf6OA1B1mPgDCyT-uI0IU7-Qbr3_PhE2vn7udT0cwDH-J3yjs9COBeU9_mze-vcXM6XjtNrgmllt59HN7w2raaQQ0niiRRFwGxMNi5XzmAsV7qZbqsFamoO2yI_Dm2m-ygoo4K"/>
+</div>
+</div>
+<div class="h-4 bg-gradient-to-b from-slate-700 to-slate-800 rounded-b-xl relative -mt-0.5">
+<div class="absolute inset-x-0 top-0 h-1 bg-black/20"></div>
+</div>
+</div>
+</div>
+<div class="order-1 lg:order-2 space-y-6">
+<div class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center font-bold font-headline text-lg">01</div>
+<h3 class="font-headline text-3xl font-bold">Analyse par plat</h3>
+<p class="text-on-surface-variant text-lg leading-relaxed">Suivi détaillé de vos fiches techniques. Identifiez en un coup d'œil les plats qui génèrent le plus de marge et ceux à retravailler d'urgence.</p>
+<ul class="space-y-4">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span class="font-medium">Rentabilité par portion précise</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span class="font-medium">Historique d'achat des ingrédients</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Dashboard Visual 2 -->
+<div class="grid lg:grid-cols-2 gap-16 items-center">
+<div class="space-y-6">
+<div class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center font-bold font-headline text-lg">02</div>
+<h3 class="font-headline text-3xl font-bold">Suivi fournisseurs</h3>
+<p class="text-on-surface-variant text-lg leading-relaxed">Contrôlez vos dépenses par fournisseur. Soyez alerté immédiatement de chaque hausse de prix sur vos produits sensibles pour ne jamais subir l'inflation.</p>
+<ul class="space-y-4">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span class="font-medium">Répartition des dépenses live</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span class="font-medium">Alertes prix automatisées</span>
+</li>
+</ul>
+</div>
+<div>
+<div class="relative">
+<!-- Premium MacBook Mockup Wrap -->
+<div class="relative rounded-t-xl bg-slate-800 p-2 pt-3 macbook-shadow border border-slate-700">
+<div class="absolute top-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-slate-600"></div>
+<div class="overflow-hidden rounded-sm bg-white aspect-[16/10]">
+<img alt="Supplier Expenses View" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0uh2oTqVp_hyVndXOqI-daBZhpGuosIC8Q3E6VxOQlBVqLMATjb7VnQYZYPoo3TCyUwPu_74mJBkrECuJH9Wu4HgmSBeH1hT3GKEUN3rW8vCl__LZEMjr_Hat1Fcx-xsg9Tdbsao3fF2cLmoj79Hp5z6A_A2mwCC8PJKoTkmG9YxBZaFzuDNGiGNiqswALZWrU-cqiyzR-xo9GqrQr3Po_9izH3ZG-Y2Uek0pzQqchZ0MPMklZMNz-4FbOaaGSTgttmHc36wbPbvPA"/>
+</div>
+</div>
+<div class="h-4 bg-gradient-to-b from-slate-700 to-slate-800 rounded-b-xl relative -mt-0.5">
+<div class="absolute inset-x-0 top-0 h-1 bg-black/20"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Comparison Table -->
+<section class="py-32 px-8 max-w-5xl mx-auto">
+<h2 class="font-headline text-4xl font-bold text-center mb-16">"Ma comptable le fait déjà"</h2>
+<div class="bg-surface-container-lowest rounded-2xl ambient-shadow overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container">
+<th class="p-8 font-headline text-lg font-bold">Fonctionnalité</th>
+<th class="p-8 font-headline text-lg font-bold text-on-surface-variant">Comptable Classique</th>
+<th class="p-8 font-headline text-lg font-bold text-primary">Polaris IA</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr>
+<td class="p-8 font-medium">Fréquence de mise à jour</td>
+<td class="p-8 text-on-surface-variant">Tous les mois ou trimestres</td>
+<td class="p-8 font-bold text-primary">Temps réel (H+24)</td>
+</tr>
+<tr>
+<td class="p-8 font-medium">Détail des ingrédients</td>
+<td class="p-8 text-on-surface-variant">Montant global HT/TTC</td>
+<td class="p-8 font-bold text-primary">Chaque ligne détaillée par unité</td>
+</tr>
+<tr>
+<td class="p-8 font-medium">Calcul de marge brute plat/plat</td>
+<td class="p-8 text-on-surface-variant">Impossible</td>
+<td class="p-8 font-bold text-primary">Automatique</td>
+</tr>
+<tr>
+<td class="p-8 font-medium">Alertes hausses de prix</td>
+<td class="p-8 text-on-surface-variant">Aucune</td>
+<td class="p-8 font-bold text-primary">Notification immédiate</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Pricing -->
+<section class="py-32 px-8 bg-surface-container-low">
+<div class="max-w-7xl mx-auto text-center">
+<h2 class="font-headline text-4xl font-bold mb-16">Un investissement, pas un coût.</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+<!-- Essentiel -->
+<div class="bg-surface-container-lowest p-12 rounded-2xl text-left flex flex-col border border-outline-variant/10">
+<h3 class="text-2xl font-bold mb-2 font-headline">Essentiel</h3>
+<p class="text-on-surface-variant mb-6">Pour les restaurants indépendants.</p>
+<div class="mb-8">
+<span class="text-5xl font-headline font-bold">99 €</span>
+<span class="text-on-surface-variant font-medium">/ mois</span>
+</div>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+<span>Jusqu'à 50 factures / mois</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+<span>Suivi des prix produits</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+<span>Alertes hebdomadaires</span>
+</li>
+</ul>
+<button class="w-full py-4 rounded-full border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all">Démarrer</button>
+</div>
+<!-- Complet -->
+<div class="bg-primary p-12 rounded-2xl text-left flex flex-col text-white relative ambient-shadow scale-105 z-10">
+<div class="absolute top-0 right-10 -translate-y-1/2 bg-on-tertiary-fixed-variant text-white text-xs font-bold px-4 py-1 rounded-full tracking-widest uppercase">Recommandé</div>
+<h3 class="text-2xl font-bold mb-2 font-headline">Complet</h3>
+<p class="text-white/70 mb-6">Le pilotage total de votre rentabilité.</p>
+<div class="mb-8">
+<span class="text-5xl font-headline font-bold">249 €</span>
+<span class="text-white/70 font-medium">/ mois</span>
+</div>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white text-xl">check_circle</span>
+<span>Factures illimitées</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white text-xl">check_circle</span>
+<span>Fiches techniques dynamiques</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white text-xl">check_circle</span>
+<span>Intégration POS / Caisse</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white text-xl">check_circle</span>
+<span>Dashboard multisites</span>
+</li>
+</ul>
+<button class="w-full py-4 rounded-full bg-white text-primary font-bold hover:bg-white/90 transition-all">Choisir Complet</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="py-32 px-8 max-w-7xl mx-auto">
+<div class="bg-slate-900 rounded-3xl p-16 text-center text-white relative overflow-hidden">
+<div class="absolute inset-0 opacity-20">
+<img alt="Happy restaurant team" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPKOrbLFGQCmO-lEC8PREAw1F1pP2N7j8vNu3flDfxlFmpCWcLLy-0I_sh4dgoANko3VlDmZ_4MtJWWh9qiCKxcZdt1OHdHhBIHn06SgFPQjtCdHwW0aGoR7JUpmjIpuFIxO7162ti9dE6HXpN4Z4UekLFnC3BDRL7OfwnFMB4pN2_SWnz0JZrHYl7g__jwHZceUDbFwqbwp0nb5ZZ-JbH-U3K-w01iqvcic3T9kU274JofNw8bysi9XxKsKAMmUL5TDARQHIyrhc"/>
+</div>
+<div class="relative z-10">
+<h2 class="font-headline text-4xl lg:text-5xl font-bold mb-8">Un restaurant qui fait 500 000 € de CA... <br class="hidden md:block"/> c'est <span class="text-primary-fixed">15 000 € de plus</span> par an dans sa poche.</h2>
+<p class="text-xl text-slate-300 mb-12 max-w-2xl mx-auto leading-relaxed">Rejoignez les 400+ restaurateurs qui ont arrêté de naviguer à vue et ont repris le contrôle de leurs marges.</p>
+<div class="flex flex-col sm:flex-row gap-6 justify-center">
+<button class="bg-primary px-10 py-5 rounded-full font-bold text-lg hover:bg-primary-container transition-all">Réserver une démo gratuite</button>
+<button class="bg-transparent border border-white/30 px-10 py-5 rounded-full font-bold text-lg hover:bg-white/10 transition-all">Nous contacter</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface py-12 px-8 border-t border-outline-variant/10">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-7xl mx-auto font-inter text-sm tracking-wide">
+<div class="text-xl font-bold text-slate-900 font-lexend">
+                Polaris IA
             </div>
-        </div>
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="mobile-menu md:hidden bg-white border-t border-slate-100">
-            <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4">
-                <a href="#use-cases" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors py-2">Cas d'usage</a>
-                <a href="cas-usages.html" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors py-2">Nos projets</a>
-                <a href="#approach" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors py-2">Notre approche</a>
-                <a href="#results" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors py-2">Résultats</a>
-                <a href="#audit" class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-primary rounded-full shadow-md hover:bg-teal-700 transition-all mt-2">
-                    Audit gratuit
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- 2. HERO -->
-    <section class="lg:pt-48 lg:pb-32 overflow-hidden pt-32 pb-20 relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                <div class="max-w-2xl relative z-10">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-100 mb-8">
-                        <span class="relative flex h-2 w-2">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                        </span>
-                        <span class="text-xs font-medium text-primary tracking-wide uppercase">IA pour PME &amp; TPE</span>
-                    </div>
-
-                    <h1 class="text-4xl lg:text-6xl font-semibold text-slate-900 leading-[1.15] tracking-tight mb-2">
-                        Nous aidons les <span class="rotating-container-inline" id="rotating-hero" aria-live="polite">
-                            <span class="rotating-item active" data-index="0"><span class="text-primary">pharmaciens</span></span><span class="rotating-item" data-index="1"><span class="text-primary">éditeurs de presse</span></span><span class="rotating-item" data-index="2"><span class="text-primary">conciergeries</span></span><span class="rotating-item" data-index="3"><span class="text-primary">comptables</span></span><span class="rotating-item" data-index="4"><span class="text-primary">agences immo</span></span><span class="rotating-item" data-index="5"><span class="text-primary">e-commerçants</span></span></span>
-                    </h1>
-                    <p class="text-4xl lg:text-6xl font-semibold leading-[1.15] tracking-tight mb-8">
-                        <span class="text-slate-900">à</span> <span class="rotating-container-inline-2" id="rotating-hero-2" aria-live="polite">
-                            <span class="rotating-item-2 active" data-index="0"><span class="text-primary">gagner du temps</span></span><span class="rotating-item-2" data-index="1"><span class="text-primary">booster leur CA</span></span><span class="rotating-item-2" data-index="2"><span class="text-primary">automatiser</span></span><span class="rotating-item-2" data-index="3"><span class="text-primary">se développer</span></span><span class="rotating-item-2" data-index="4"><span class="text-primary">croître</span></span><span class="rotating-item-2" data-index="5"><span class="text-primary">se libérer</span></span></span> <span class="text-slate-900">grâce à l'IA.</span>
-                    </p>
-
-                    <p class="text-lg text-slate-500 mb-10 leading-relaxed max-w-lg">
-                        Automatisez vos tâches répétitives, augmentez votre rentabilité et redonnez du sens au travail de vos équipes.
-                    </p>
-
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#audit" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-white bg-primary rounded-full shadow-lg shadow-teal-500/25 hover:bg-teal-700 hover:-translate-y-0.5 transition-all">
-                            Démarrer l'audit gratuit
-                        </a>
-                        <a href="#use-cases" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-slate-700 bg-white border border-slate-200 rounded-full hover:bg-slate-50 hover:border-slate-300 transition-all">
-                            <iconify-icon icon="solar:play-circle-linear" class="mr-2 text-xl"></iconify-icon>
-                            Voir la démo
-                        </a>
-                    </div>
-                </div>
-
-                <div class="relative lg:h-[500px] flex items-center justify-center">
-                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-teal-50 via-blue-50 to-white rounded-full blur-3xl opacity-60 -z-10"></div>
-                    <!-- Illustration hero — SVG inline IA / Automatisation -->
-                    <svg viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-md drop-shadow-xl hover:scale-[1.02] transition-transform duration-500">
-                        <!-- Background shapes -->
-                        <circle cx="250" cy="200" r="160" fill="#CCFBF1" opacity="0.4"/>
-                        <circle cx="250" cy="200" r="120" fill="#CCFBF1" opacity="0.3"/>
-
-                        <!-- Central brain/AI node -->
-                        <g transform="translate(250,180)">
-                            <!-- Brain outline -->
-                            <path d="M-35,-40 C-35,-60 -15,-70 0,-70 C15,-70 35,-60 35,-40 C50,-35 55,-15 50,5 C55,20 45,40 30,45 C25,55 10,60 0,60 C-10,60 -25,55 -30,45 C-45,40 -55,20 -50,5 C-55,-15 -50,-35 -35,-40Z" fill="#0D9488" opacity="0.15" stroke="#0D9488" stroke-width="2"/>
-                            <!-- Neural connections inside -->
-                            <circle cx="-15" cy="-20" r="5" fill="#0D9488" opacity="0.6"/>
-                            <circle cx="15" cy="-25" r="4" fill="#0D9488" opacity="0.6"/>
-                            <circle cx="0" cy="0" r="6" fill="#0D9488"/>
-                            <circle cx="-20" cy="15" r="4" fill="#0D9488" opacity="0.6"/>
-                            <circle cx="18" cy="10" r="5" fill="#0D9488" opacity="0.6"/>
-                            <circle cx="0" cy="30" r="4" fill="#0D9488" opacity="0.6"/>
-                            <line x1="-15" y1="-20" x2="0" y2="0" stroke="#0D9488" stroke-width="1.5" opacity="0.4"/>
-                            <line x1="15" y1="-25" x2="0" y2="0" stroke="#0D9488" stroke-width="1.5" opacity="0.4"/>
-                            <line x1="-20" y1="15" x2="0" y2="0" stroke="#0D9488" stroke-width="1.5" opacity="0.4"/>
-                            <line x1="18" y1="10" x2="0" y2="0" stroke="#0D9488" stroke-width="1.5" opacity="0.4"/>
-                            <line x1="0" y1="30" x2="0" y2="0" stroke="#0D9488" stroke-width="1.5" opacity="0.4"/>
-                            <line x1="-15" y1="-20" x2="15" y2="-25" stroke="#0D9488" stroke-width="1" opacity="0.3"/>
-                            <line x1="-20" y1="15" x2="0" y2="30" stroke="#0D9488" stroke-width="1" opacity="0.3"/>
-                            <line x1="18" y1="10" x2="0" y2="30" stroke="#0D9488" stroke-width="1" opacity="0.3"/>
-                        </g>
-
-                        <!-- Orbiting data points with pulse animation -->
-                        <g>
-                            <circle cx="250" cy="180" r="100" fill="none" stroke="#0D9488" stroke-width="1" stroke-dasharray="6 4" opacity="0.25">
-                                <animateTransform attributeName="transform" type="rotate" from="0 250 180" to="360 250 180" dur="30s" repeatCount="indefinite"/>
-                            </circle>
-                            <circle cx="250" cy="180" r="140" fill="none" stroke="#0D9488" stroke-width="1" stroke-dasharray="4 6" opacity="0.15">
-                                <animateTransform attributeName="transform" type="rotate" from="360 250 180" to="0 250 180" dur="45s" repeatCount="indefinite"/>
-                            </circle>
-                        </g>
-
-                        <!-- Floating cards representing use cases -->
-                        <!-- Card 1: Pharmacy -->
-                        <g transform="translate(90,90)">
-                            <rect x="0" y="0" width="85" height="60" rx="12" fill="white" stroke="#10B981" stroke-width="1.5" filter="url(#shadow)"/>
-                            <rect x="12" y="12" width="24" height="24" rx="6" fill="#ECFDF5"/>
-                            <text x="24" y="29" text-anchor="middle" font-size="14" fill="#10B981">+</text>
-                            <rect x="44" y="16" width="28" height="4" rx="2" fill="#E2E8F0"/>
-                            <rect x="44" y="26" width="20" height="4" rx="2" fill="#E2E8F0"/>
-                            <text x="14" y="50" font-size="7" fill="#64748B" font-family="Inter,sans-serif">Pharmacie</text>
-                            <animateTransform attributeName="transform" type="translate" values="90,90;90,80;90,90" dur="4s" repeatCount="indefinite"/>
-                        </g>
-
-                        <!-- Card 2: Press -->
-                        <g transform="translate(330,70)">
-                            <rect x="0" y="0" width="85" height="60" rx="12" fill="white" stroke="#3B82F6" stroke-width="1.5" filter="url(#shadow)"/>
-                            <rect x="12" y="12" width="24" height="24" rx="6" fill="#EFF6FF"/>
-                            <text x="24" y="28" text-anchor="middle" font-size="12" fill="#3B82F6">A</text>
-                            <rect x="44" y="16" width="28" height="4" rx="2" fill="#E2E8F0"/>
-                            <rect x="44" y="26" width="20" height="4" rx="2" fill="#E2E8F0"/>
-                            <text x="14" y="50" font-size="7" fill="#64748B" font-family="Inter,sans-serif">Presse</text>
-                            <animateTransform attributeName="transform" type="translate" values="330,70;330,62;330,70" dur="5s" repeatCount="indefinite"/>
-                        </g>
-
-                        <!-- Card 3: Airbnb -->
-                        <g transform="translate(350,260)">
-                            <rect x="0" y="0" width="85" height="60" rx="12" fill="white" stroke="#F97316" stroke-width="1.5" filter="url(#shadow)"/>
-                            <rect x="12" y="12" width="24" height="24" rx="6" fill="#FFF7ED"/>
-                            <text x="24" y="29" text-anchor="middle" font-size="12" fill="#F97316">&#x2302;</text>
-                            <rect x="44" y="16" width="28" height="4" rx="2" fill="#E2E8F0"/>
-                            <rect x="44" y="26" width="20" height="4" rx="2" fill="#E2E8F0"/>
-                            <text x="14" y="50" font-size="7" fill="#64748B" font-family="Inter,sans-serif">Airbnb</text>
-                            <animateTransform attributeName="transform" type="translate" values="350,260;350,268;350,260" dur="4.5s" repeatCount="indefinite"/>
-                        </g>
-
-                        <!-- Connection lines from brain to cards -->
-                        <line x1="200" y1="160" x2="155" y2="120" stroke="#0D9488" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.3">
-                            <animate attributeName="stroke-dashoffset" from="0" to="14" dur="2s" repeatCount="indefinite"/>
-                        </line>
-                        <line x1="300" y1="155" x2="350" y2="110" stroke="#0D9488" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.3">
-                            <animate attributeName="stroke-dashoffset" from="0" to="14" dur="2s" repeatCount="indefinite"/>
-                        </line>
-                        <line x1="290" y1="220" x2="370" y2="270" stroke="#0D9488" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.3">
-                            <animate attributeName="stroke-dashoffset" from="0" to="14" dur="2s" repeatCount="indefinite"/>
-                        </line>
-
-                        <!-- Bottom bar chart / growth indicator -->
-                        <g transform="translate(75,280)">
-                            <rect x="0" y="40" width="16" height="30" rx="3" fill="#0D9488" opacity="0.2"/>
-                            <rect x="22" y="25" width="16" height="45" rx="3" fill="#0D9488" opacity="0.35"/>
-                            <rect x="44" y="15" width="16" height="55" rx="3" fill="#0D9488" opacity="0.5"/>
-                            <rect x="66" y="5" width="16" height="65" rx="3" fill="#0D9488" opacity="0.7"/>
-                            <!-- Arrow up -->
-                            <path d="M95,30 L105,10 L115,30" stroke="#0D9488" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                            <line x1="105" y1="10" x2="105" y2="55" stroke="#0D9488" stroke-width="2.5" stroke-linecap="round"/>
-                        </g>
-
-                        <!-- Sparkle / stars -->
-                        <g fill="#0D9488" opacity="0.5">
-                            <circle cx="140" cy="160" r="2.5">
-                                <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
-                            </circle>
-                            <circle cx="370" cy="190" r="2">
-                                <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite"/>
-                            </circle>
-                            <circle cx="310" cy="320" r="2.5">
-                                <animate attributeName="opacity" values="0.4;1;0.4" dur="2.5s" repeatCount="indefinite"/>
-                            </circle>
-                            <circle cx="180" cy="300" r="1.5">
-                                <animate attributeName="opacity" values="0.5;0.9;0.5" dur="1.8s" repeatCount="indefinite"/>
-                            </circle>
-                        </g>
-
-                        <!-- SVG filter for card shadows -->
-                        <defs>
-                            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-                                <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0F172A" flood-opacity="0.08"/>
-                            </filter>
-                        </defs>
-                    </svg>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 3. USE CASES -->
-    <section id="use-cases" class="py-24 bg-white relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-2xl mx-auto mb-16 reveal">
-                <h2 class="text-3xl lg:text-4xl font-semibold text-slate-900 tracking-tight mb-4">Solutions sectorielles</h2>
-                <p class="text-slate-500">Des agents IA pré-entraînés pour les défis spécifiques de votre métier.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Pharmacies -->
-                <div class="group bg-white rounded-3xl p-8 border border-slate-100 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 reveal">
-                    <div class="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-                        <iconify-icon icon="solar:medical-kit-linear" width="24"></iconify-icon>
-                    </div>
-                    <h3 class="text-xl font-semibold text-slate-900 mb-3 tracking-tight">Pharmacies</h3>
-                    <p class="text-slate-500 text-sm mb-6 min-h-[40px]">Vérification automatique des livraisons et gestion des stocks.</p>
-                    <div class="space-y-3 pt-6 border-t border-slate-100">
-                        <div class="flex items-center justify-between text-sm">
-                            <span class="text-slate-400">Gain de temps</span>
-                            <span class="font-medium text-emerald-600">3-4h / semaine</span>
-                        </div>
-                        <div class="flex items-center justify-between text-sm">
-                            <span class="text-slate-400">Fiabilité</span>
-                            <span class="font-medium text-emerald-600">99%</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Éditeurs de presse -->
-                <div class="group bg-white rounded-3xl p-8 border border-slate-100 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 reveal">
-                    <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                        <iconify-icon icon="solar:document-text-linear" width="24"></iconify-icon>
-                    </div>
-                    <h3 class="text-xl font-semibold text-slate-900 mb-3 tracking-tight">Éditeurs de presse</h3>
-                    <p class="text-slate-500 text-sm mb-6 min-h-[40px]">Prospection automatique des annonceurs et qualification.</p>
-                    <div class="space-y-3 pt-6 border-t border-slate-100">
-                        <div class="flex items-center justify-between text-sm">
-                            <span class="text-slate-400">Croissance</span>
-                            <span class="font-medium text-blue-600">+30% CA Pub</span>
-                        </div>
-                        <div class="flex items-center justify-between text-sm">
-                            <span class="text-slate-400">Impact</span>
-                            <span class="font-medium text-blue-600">ROI Mesurable</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Conciergeries Airbnb -->
-                <div class="group bg-white rounded-3xl p-8 border border-slate-100 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 reveal">
-                    <div class="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center text-orange-600 mb-6 group-hover:bg-orange-600 group-hover:text-white transition-colors">
-                        <iconify-icon icon="solar:key-linear" width="24"></iconify-icon>
-                    </div>
-                    <h3 class="text-xl font-semibold text-slate-900 mb-3 tracking-tight">Conciergeries Airbnb</h3>
-                    <p class="text-slate-500 text-sm mb-6 min-h-[40px]">Agent IA de réponse automatique aux voyageurs 24/7.</p>
-                    <div class="space-y-3 pt-6 border-t border-slate-100">
-                        <div class="flex items-center justify-between text-sm">
-                            <span class="text-slate-400">Automatisation</span>
-                            <span class="font-medium text-orange-600">90% des questions</span>
-                        </div>
-                        <div class="flex items-center justify-between text-sm">
-                            <span class="text-slate-400">Disponibilité</span>
-                            <span class="font-medium text-orange-600">24/7</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 5. HOW IT WORKS -->
-    <section id="approach" class="py-24 bg-slate-50/50">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="mb-16 reveal">
-                <h2 class="text-3xl lg:text-4xl font-semibold text-slate-900 tracking-tight mb-4">De l'idée à l'automatisation</h2>
-                <p class="text-slate-500">Un processus simple et transparent.</p>
-            </div>
-
-            <div class="relative">
-                <div class="hidden lg:block absolute top-12 left-0 w-full h-0.5 border-t-2 border-dashed border-slate-200 z-0"></div>
-
-                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
-                    <div class="relative z-10 bg-slate-50 lg:bg-transparent pt-4 lg:pt-0 reveal">
-                        <div class="w-24 h-24 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center text-primary mb-6 mx-auto lg:mx-0">
-                            <span class="text-2xl font-semibold">1</span>
-                        </div>
-                        <h4 class="text-lg font-semibold text-slate-900 mb-2 text-center lg:text-left">Audit gratuit</h4>
-                        <p class="text-sm text-slate-500 leading-relaxed text-center lg:text-left">Analyse de vos processus actuels pour identifier les gisements de productivité.</p>
-                    </div>
-                    <div class="relative z-10 bg-slate-50 lg:bg-transparent pt-4 lg:pt-0 reveal">
-                        <div class="w-24 h-24 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center text-primary mb-6 mx-auto lg:mx-0">
-                            <span class="text-2xl font-semibold">2</span>
-                        </div>
-                        <h4 class="text-lg font-semibold text-slate-900 mb-2 text-center lg:text-left">Solution sur mesure</h4>
-                        <p class="text-sm text-slate-500 leading-relaxed text-center lg:text-left">Développement et configuration de votre agent IA personnalisé.</p>
-                    </div>
-                    <div class="relative z-10 bg-slate-50 lg:bg-transparent pt-4 lg:pt-0 reveal">
-                        <div class="w-24 h-24 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center text-primary mb-6 mx-auto lg:mx-0">
-                            <span class="text-2xl font-semibold">3</span>
-                        </div>
-                        <h4 class="text-lg font-semibold text-slate-900 mb-2 text-center lg:text-left">Formation</h4>
-                        <p class="text-sm text-slate-500 leading-relaxed text-center lg:text-left">Onboarding de vos équipes pour une prise en main immédiate.</p>
-                    </div>
-                    <div class="relative z-10 bg-slate-50 lg:bg-transparent pt-4 lg:pt-0 reveal">
-                        <div class="w-24 h-24 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center justify-center text-primary mb-6 mx-auto lg:mx-0">
-                            <span class="text-2xl font-semibold">4</span>
-                        </div>
-                        <h4 class="text-lg font-semibold text-slate-900 mb-2 text-center lg:text-left">3 mois de support</h4>
-                        <p class="text-sm text-slate-500 leading-relaxed text-center lg:text-left">Suivi continu, ajustements et optimisation des performances.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 6. BENEFITS -->
-    <section class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-20 items-center">
-                <div class="order-2 lg:order-1 reveal">
-                    <!-- Illustration bénéfices — SVG inline Productivité / Shield -->
-                    <svg viewBox="0 0 460 420" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-md mx-auto drop-shadow-2xl">
-                        <!-- Fond circle -->
-                        <circle cx="230" cy="210" r="180" fill="#F0FDFA" opacity="0.6"/>
-
-                        <!-- Central shield / trust -->
-                        <g transform="translate(175,100)">
-                            <path d="M55,0 L110,25 L110,75 C110,120 55,150 55,150 C55,150 0,120 0,75 L0,25 Z" fill="#0D9488" opacity="0.1" stroke="#0D9488" stroke-width="2"/>
-                            <path d="M55,15 L100,35 L100,75 C100,112 55,138 55,138 C55,138 10,112 10,75 L10,35 Z" fill="white" stroke="#0D9488" stroke-width="1.5"/>
-                            <!-- Checkmark inside shield -->
-                            <path d="M35,75 L50,90 L78,55" stroke="#0D9488" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                            <!-- RGPD label -->
-                            <text x="55" y="115" text-anchor="middle" font-size="10" fill="#0D9488" font-family="Inter,sans-serif" font-weight="600">RGPD</text>
-                        </g>
-
-                        <!-- Floating feature badges -->
-                        <!-- Badge 1: Speed / Clock -->
-                        <g transform="translate(30,80)">
-                            <rect x="0" y="0" width="110" height="50" rx="25" fill="white" stroke="#0D9488" stroke-width="1.5" filter="url(#shadowBenefits)"/>
-                            <circle cx="30" cy="25" r="14" fill="#CCFBF1"/>
-                            <!-- Clock icon -->
-                            <circle cx="30" cy="25" r="8" fill="none" stroke="#0D9488" stroke-width="1.5"/>
-                            <line x1="30" y1="25" x2="30" y2="19" stroke="#0D9488" stroke-width="1.5" stroke-linecap="round"/>
-                            <line x1="30" y1="25" x2="35" y2="25" stroke="#0D9488" stroke-width="1.5" stroke-linecap="round"/>
-                            <text x="60" y="22" font-size="8" fill="#0F172A" font-family="Inter,sans-serif" font-weight="600">Rapide</text>
-                            <text x="60" y="33" font-size="7" fill="#64748B" font-family="Inter,sans-serif">&lt; 3 semaines</text>
-                            <animateTransform attributeName="transform" type="translate" values="30,80;30,72;30,80" dur="5s" repeatCount="indefinite"/>
-                        </g>
-
-                        <!-- Badge 2: ROI -->
-                        <g transform="translate(320,120)">
-                            <rect x="0" y="0" width="110" height="50" rx="25" fill="white" stroke="#0D9488" stroke-width="1.5" filter="url(#shadowBenefits)"/>
-                            <circle cx="30" cy="25" r="14" fill="#CCFBF1"/>
-                            <!-- Chart icon -->
-                            <polyline points="22,32 27,24 32,28 38,18" stroke="#0D9488" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                            <text x="60" y="22" font-size="8" fill="#0F172A" font-family="Inter,sans-serif" font-weight="600">ROI 3x</text>
-                            <text x="60" y="33" font-size="7" fill="#64748B" font-family="Inter,sans-serif">Mesurable</text>
-                            <animateTransform attributeName="transform" type="translate" values="320,120;320,128;320,120" dur="4.5s" repeatCount="indefinite"/>
-                        </g>
-
-                        <!-- Badge 3: Personnalisé / Gear -->
-                        <g transform="translate(50,280)">
-                            <rect x="0" y="0" width="120" height="50" rx="25" fill="white" stroke="#0D9488" stroke-width="1.5" filter="url(#shadowBenefits)"/>
-                            <circle cx="30" cy="25" r="14" fill="#CCFBF1"/>
-                            <!-- Gear icon simplified -->
-                            <circle cx="30" cy="25" r="5" fill="none" stroke="#0D9488" stroke-width="1.5"/>
-                            <circle cx="30" cy="25" r="9" fill="none" stroke="#0D9488" stroke-width="1.5" stroke-dasharray="3 3"/>
-                            <text x="60" y="22" font-size="8" fill="#0F172A" font-family="Inter,sans-serif" font-weight="600">Sur mesure</text>
-                            <text x="60" y="33" font-size="7" fill="#64748B" font-family="Inter,sans-serif">100% adapté</text>
-                            <animateTransform attributeName="transform" type="translate" values="50,280;50,288;50,280" dur="4s" repeatCount="indefinite"/>
-                        </g>
-
-                        <!-- Badge 4: Support -->
-                        <g transform="translate(300,290)">
-                            <rect x="0" y="0" width="120" height="50" rx="25" fill="white" stroke="#0D9488" stroke-width="1.5" filter="url(#shadowBenefits)"/>
-                            <circle cx="30" cy="25" r="14" fill="#CCFBF1"/>
-                            <!-- Headset icon simplified -->
-                            <path d="M22,28 C22,21 26,17 30,17 C34,17 38,21 38,28" stroke="#0D9488" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-                            <rect x="20" y="26" width="5" height="8" rx="2" fill="#0D9488" opacity="0.4"/>
-                            <rect x="35" y="26" width="5" height="8" rx="2" fill="#0D9488" opacity="0.4"/>
-                            <text x="60" y="22" font-size="8" fill="#0F172A" font-family="Inter,sans-serif" font-weight="600">Support</text>
-                            <text x="60" y="33" font-size="7" fill="#64748B" font-family="Inter,sans-serif">3 mois inclus</text>
-                            <animateTransform attributeName="transform" type="translate" values="300,290;300,282;300,290" dur="5.5s" repeatCount="indefinite"/>
-                        </g>
-
-                        <!-- Connecting dotted arcs from shield to badges -->
-                        <path d="M185,170 Q100,130 120,105" stroke="#0D9488" stroke-width="1" stroke-dasharray="4 3" fill="none" opacity="0.25"/>
-                        <path d="M280,170 Q360,150 340,145" stroke="#0D9488" stroke-width="1" stroke-dasharray="4 3" fill="none" opacity="0.25"/>
-                        <path d="M200,250 Q130,270 140,290" stroke="#0D9488" stroke-width="1" stroke-dasharray="4 3" fill="none" opacity="0.25"/>
-                        <path d="M270,250 Q330,270 330,290" stroke="#0D9488" stroke-width="1" stroke-dasharray="4 3" fill="none" opacity="0.25"/>
-
-                        <!-- Sparkles -->
-                        <circle cx="160" cy="60" r="2" fill="#0D9488" opacity="0.4">
-                            <animate attributeName="opacity" values="0.2;0.8;0.2" dur="3s" repeatCount="indefinite"/>
-                        </circle>
-                        <circle cx="400" cy="200" r="2.5" fill="#0D9488" opacity="0.3">
-                            <animate attributeName="opacity" values="0.3;0.9;0.3" dur="2.5s" repeatCount="indefinite"/>
-                        </circle>
-                        <circle cx="100" cy="350" r="2" fill="#0D9488" opacity="0.4">
-                            <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
-                        </circle>
-
-                        <defs>
-                            <filter id="shadowBenefits" x="-20%" y="-20%" width="140%" height="140%">
-                                <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#0F172A" flood-opacity="0.07"/>
-                            </filter>
-                        </defs>
-                    </svg>
-                </div>
-
-                <div class="order-1 lg:order-2 reveal">
-                    <h2 class="text-3xl lg:text-4xl font-semibold text-slate-900 tracking-tight mb-8">Pourquoi choisir Polaris IA ?</h2>
-
-                    <div class="space-y-6">
-                        <div class="flex gap-4">
-                            <div class="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center mt-0.5 flex-shrink-0">
-                                <iconify-icon icon="solar:check-circle-linear" class="text-primary text-sm"></iconify-icon>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-medium text-slate-900 mb-1">Solutions personnalisées</h4>
-                                <p class="text-slate-500 text-sm">Pas de solution générique. Nous adaptons l'IA à votre réalité métier et vos outils existants.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center mt-0.5 flex-shrink-0">
-                                <iconify-icon icon="solar:check-circle-linear" class="text-primary text-sm"></iconify-icon>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-medium text-slate-900 mb-1">Déploiement rapide</h4>
-                                <p class="text-slate-500 text-sm">Des résultats concrets en moins de 3 semaines, sans perturber votre activité.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center mt-0.5 flex-shrink-0">
-                                <iconify-icon icon="solar:check-circle-linear" class="text-primary text-sm"></iconify-icon>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-medium text-slate-900 mb-1">Conformité RGPD</h4>
-                                <p class="text-slate-500 text-sm">Vos données restent vos données. Sécurité et confidentialité garanties (Hébergement France/EU).</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center mt-0.5 flex-shrink-0">
-                                <iconify-icon icon="solar:check-circle-linear" class="text-primary text-sm"></iconify-icon>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-medium text-slate-900 mb-1">ROI Mesurable</h4>
-                                <p class="text-slate-500 text-sm">Tableaux de bord de performance inclus pour suivre vos économies en temps réel.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 7. STATS -->
-    <section id="results" class="py-20 bg-[#0F172A] text-white reveal">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-                <div class="p-4">
-                    <div class="text-4xl lg:text-5xl font-semibold mb-2 text-primary tracking-tight counter" data-target="+5h">+5h</div>
-                    <div class="text-sm lg:text-base text-slate-400 font-medium">Gagnées par semaine</div>
-                </div>
-                <div class="p-4 border-l border-slate-800/50">
-                    <div class="text-4xl lg:text-5xl font-semibold mb-2 text-primary tracking-tight counter" data-target="98%">98%</div>
-                    <div class="text-sm lg:text-base text-slate-400 font-medium">Taux de satisfaction</div>
-                </div>
-                <div class="p-4 border-l border-slate-800/50">
-                    <div class="text-4xl lg:text-5xl font-semibold mb-2 text-primary tracking-tight counter" data-target="3x">3x</div>
-                    <div class="text-sm lg:text-base text-slate-400 font-medium">ROI moyen an 1</div>
-                </div>
-                <div class="p-4 border-l border-slate-800/50">
-                    <div class="text-4xl lg:text-5xl font-semibold mb-2 text-primary tracking-tight counter" data-target="15j">15j</div>
-                    <div class="text-sm lg:text-base text-slate-400 font-medium">Temps de déploiement</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 8. CTA -->
-    <section id="audit" class="py-32 bg-slate-50">
-        <div class="max-w-4xl mx-auto px-6 text-center reveal">
-            <h2 class="text-3xl lg:text-5xl font-semibold text-slate-900 tracking-tight mb-6">Prêt à gagner du temps grâce à l'IA ?</h2>
-            <p class="text-lg text-slate-500 mb-10">Rejoignez les entreprises qui automatisent leur futur. L'audit est gratuit et sans engagement.</p>
-
-            <form id="audit-form" class="max-w-md mx-auto">
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <input type="email" id="email-input" placeholder="votre@email.com" class="flex-1 bg-white px-6 py-4 rounded-full border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent shadow-sm transition-all" required>
-                    <button type="submit" class="px-8 py-4 bg-primary text-white font-medium rounded-full hover:bg-teal-700 transition-colors shadow-lg shadow-teal-500/30 flex items-center justify-center gap-2">
-                        Audit gratuit
-                        <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
-                    </button>
-                </div>
-                <p class="text-xs text-slate-400 mt-4">Nous respectons vos données. Pas de spam.</p>
-                <!-- Message de confirmation -->
-                <div id="form-success" class="hidden mt-4 p-4 bg-teal-50 border border-teal-200 rounded-2xl text-teal-800 text-sm font-medium">
-                    ✓ Merci ! Nous vous recontactons sous 24h pour votre audit gratuit.
-                </div>
-            </form>
-        </div>
-    </section>
-
-    <!-- 9. FOOTER -->
-    <footer class="bg-dark text-slate-400 py-16 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-12 mb-12">
-                <div>
-                    <div class="flex items-center gap-2 mb-6">
-                        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                            <span class="text-white font-semibold text-sm">P</span>
-                        </div>
-                        <span class="text-white font-medium tracking-tight">Polaris IA</span>
-                    </div>
-                    <p class="text-sm leading-relaxed">Accélérateur de croissance pour PME grâce à l'automatisation intelligente.</p>
-                </div>
-
-                <div>
-                    <h5 class="text-white font-medium mb-4">Entreprise</h5>
-                    <ul class="space-y-3 text-sm">
-                        <li><a href="#" class="hover:text-primary transition-colors">À propos</a></li>
-                        <li><a href="#" class="hover:text-primary transition-colors">Carrières</a></li>
-                        <li><a href="#" class="hover:text-primary transition-colors">Blog</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h5 class="text-white font-medium mb-4">Légal</h5>
-                    <ul class="space-y-3 text-sm">
-                        <li><a href="#" class="hover:text-primary transition-colors">Mentions légales</a></li>
-                        <li><a href="#" class="hover:text-primary transition-colors">Confidentialité</a></li>
-                        <li><a href="#" class="hover:text-primary transition-colors">CGV</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h5 class="text-white font-medium mb-4">Contact</h5>
-                    <ul class="space-y-3 text-sm">
-                        <li class="flex items-center gap-2"><iconify-icon icon="solar:letter-linear"></iconify-icon> hello@polaris-ia.com</li>
-                        <li class="flex items-center gap-2"><iconify-icon icon="solar:map-point-linear"></iconify-icon> Paris, France</li>
-                    </ul>
-                    <div class="flex gap-4 mt-4">
-                        <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn"><iconify-icon icon="solar:brand-linkedin-linear" width="20"></iconify-icon></a>
-                        <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Twitter"><iconify-icon icon="solar:brand-twitter-linear" width="20"></iconify-icon></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
-                <p>© 2025 Polaris IA. Tous droits réservés.</p>
-                <div class="flex items-center gap-1">
-                    <span>Conçu avec</span>
-                    <iconify-icon icon="solar:heart-bold" class="text-red-500"></iconify-icon>
-                    <span>en France</span>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- ========== JAVASCRIPT ========== -->
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-
-        // --- 1. Rotating hero text (synchronized) ---
-        const container = document.getElementById('rotating-hero');
-        const container2 = document.getElementById('rotating-hero-2');
-        
-        if (container && container2) {
-            const items = container.querySelectorAll('.rotating-item');
-            const items2 = container2.querySelectorAll('.rotating-item-2');
-            let currentIndex = 0;
-            const totalItems = items.length;
-            const DISPLAY_DURATION = 3200;  // time each phrase stays visible
-            const TRANSITION_MS = 600;       // matches CSS transition duration
-
-            function rotateNext() {
-                // Rotate first container
-                const current = items[currentIndex];
-                current.classList.remove('active');
-                current.classList.add('exit');
-                
-                // Rotate second container
-                const current2 = items2[currentIndex];
-                current2.classList.remove('active');
-                current2.classList.add('exit');
-
-                // Clean up exit class after transition completes
-                setTimeout(() => {
-                    current.classList.remove('exit');
-                    current2.classList.remove('exit');
-                }, TRANSITION_MS);
-
-                // Advance index
-                currentIndex = (currentIndex + 1) % totalItems;
-                items[currentIndex].classList.add('active');
-                items2[currentIndex].classList.add('active');
-            }
-
-            setInterval(rotateNext, DISPLAY_DURATION);
-        }
-
-        // --- 2. Mobile menu toggle ---
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const iconOpen = document.getElementById('menu-icon-open');
-        const iconClose = document.getElementById('menu-icon-close');
-
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('open');
-            iconOpen.classList.toggle('hidden');
-            iconClose.classList.toggle('hidden');
-        });
-
-        // Close menu on link click
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('open');
-                iconOpen.classList.remove('hidden');
-                iconClose.classList.add('hidden');
-            });
-        });
-
-        // --- 3. Scroll reveal animations ---
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, i) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => entry.target.classList.add('visible'), i * 100);
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // --- 4. Navbar shadow on scroll ---
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('shadow-md');
-            } else {
-                navbar.classList.remove('shadow-md');
-            }
-        });
-
-        // --- 5. Form submission ---
-        const form = document.getElementById('audit-form');
-        const formSuccess = document.getElementById('form-success');
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email-input').value;
-
-            // TODO: Remplacer par l'envoi réel (webhook, API, etc.)
-            // Exemple: fetch('https://votre-api.com/audit', { method: 'POST', body: JSON.stringify({ email }) })
-
-            console.log('Audit demandé pour:', email);
-            form.querySelector('button[type="submit"]').style.display = 'none';
-            form.querySelector('input[type="email"]').style.display = 'none';
-            formSuccess.classList.remove('hidden');
-        });
-    });
-    </script>
-
-    <!-- Polaris IA — Propulsé par ChatFactory -->
-    <script src="https://chatbotator.netlify.app/w/d7b25b4029608e52.js" async></script>
-
-</body>
-</html>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="text-slate-500 hover:text-primary transition-all" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-primary transition-all" href="#">Terms of Service</a>
+<a class="text-slate-500 hover:text-primary transition-all" href="#">Contact Us</a>
+<a class="text-slate-500 hover:text-primary transition-all" href="#">Documentation</a>
+</div>
+<p class="text-slate-500">© 2024 Polaris IA. All rights reserved.</p>
+</div>
+</footer>
+</body></html>
