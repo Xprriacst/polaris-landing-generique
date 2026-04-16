@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Polaris IA — Découvrez nos cas d'usages concrets : automatisation IA pour PME & TPE en vidéo.">
+    <title>Cas d'usages — Polaris IA</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230D9488'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='Inter,sans-serif' font-weight='600' font-size='20'>P</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: { sans: ['Inter', 'sans-serif'] },
+                colors: {
+                    primary: '#0D9488',
+                    primaryLight: '#CCFBF1',
+                    dark: '#0F172A',
+                },
+            }
+        }
+    }
+    </script>
+    <style>
+        body { font-feature-settings: "cv11", "ss01"; }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .mobile-menu.open {
+            max-height: 300px;
+        }
+        .video-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .video-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-600 font-sans antialiased selection:bg-teal-100 selection:text-teal-900">
+
+    <!-- NAVBAR -->
+    <nav id="navbar" class="fixed w-full z-50 glass-nav transition-all duration-300 top-0">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-teal-500/20 transition-transform group-hover:scale-105 relative overflow-hidden">
+                    <svg viewBox="0 0 40 40" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 8 20 A 12 12 0 0 1 20 8" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+                        <path d="M 32 20 A 12 12 0 0 1 20 32" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+                        <path d="M 20 12 L 17 20 L 20 28 L 23 20 Z" fill="white" opacity="0.9"/>
+                        <circle cx="20" cy="20" r="2" fill="white"/>
+                    </svg>
+                </div>
+                <span class="text-slate-900 font-semibold text-lg tracking-tight">Polaris IA</span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html#use-cases" class="text-sm font-medium text-slate-500 hover:text-primary transition-colors">Cas d'usage</a>
+                <a href="cas-usages.html" class="text-sm font-medium text-primary transition-colors">Nos projets</a>
+                <a href="index.html#approach" class="text-sm font-medium text-slate-500 hover:text-primary transition-colors">Notre approche</a>
+                <a href="index.html#results" class="text-sm font-medium text-slate-500 hover:text-primary transition-colors">Résultats</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="index.html#audit" class="hidden md:inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-primary rounded-full shadow-md shadow-teal-500/20 hover:bg-teal-700 hover:shadow-lg transition-all">
+                    Audit gratuit
+                </a>
+                <button id="menu-toggle" class="md:hidden text-slate-500 hover:text-slate-700 transition-colors" aria-label="Menu">
+                    <iconify-icon icon="solar:hamburger-menu-linear" width="24" id="menu-icon-open"></iconify-icon>
+                    <iconify-icon icon="solar:close-circle-linear" width="24" class="hidden" id="menu-icon-close"></iconify-icon>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-white border-t border-slate-100">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4">
+                <a href="index.html#use-cases" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors py-2">Cas d'usage</a>
+                <a href="cas-usages.html" class="text-sm font-medium text-primary transition-colors py-2">Nos projets</a>
+                <a href="index.html#approach" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors py-2">Notre approche</a>
+                <a href="index.html#results" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors py-2">Résultats</a>
+                <a href="index.html#audit" class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-primary rounded-full shadow-md hover:bg-teal-700 transition-all mt-2">
+                    Audit gratuit
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="pt-32 pb-16 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto reveal">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-100 mb-8">
+                    <iconify-icon icon="solar:play-circle-bold" class="text-primary text-sm"></iconify-icon>
+                    <span class="text-xs font-medium text-primary tracking-wide uppercase">Cas d'usages en vidéo</span>
+                </div>
+                <h1 class="text-4xl lg:text-5xl font-semibold text-slate-900 leading-tight tracking-tight mb-6">
+                    Nos projets <span class="text-primary">en action</span>
+                </h1>
+                <p class="text-lg text-slate-500 leading-relaxed max-w-2xl mx-auto">
+                    Découvrez comment Polaris IA transforme concrètement le quotidien des PME grâce à l'automatisation intelligente.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEOS GRID -->
+    <section class="pb-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-8">
+
+                <!-- Video 1 — PharmaCheck -->
+                <div class="video-card bg-white rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/50 overflow-hidden reveal">
+                    <div class="aspect-video bg-slate-100">
+                        <iframe src="https://drive.google.com/file/d/1Vbyv-wdTB7fQXhdllpuR5NKwO-AEiiQO/preview" width="100%" height="100%" frameborder="0" title="PharmaCheck — Réconciliation automatique des factures fournisseurs" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-600">💊 Pharmacie</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-900 tracking-tight">PharmaCheck — Réconciliation automatique des factures fournisseurs</h3>
+                        <p class="text-sm text-slate-500 mt-2">Réconciliation automatique des factures avec les commandes, détection des écarts de prix/quantité et rapport de validation instantané. Zéro saisie manuelle, plusieurs heures gagnées par semaine.</p>
+                    </div>
+                </div>
+
+                <!-- Video 2 — ChatbotFactory -->
+                <div class="video-card bg-white rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/50 overflow-hidden reveal">
+                    <div class="aspect-video bg-slate-100">
+                        <iframe src="https://drive.google.com/file/d/1GNx0-MAlYN8EbL5kH3VVh1PqlAs3r9P-/preview" width="100%" height="100%" frameborder="0" title="ChatbotFactory — Déploiement rapide de chatbots métier personnalisés" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-600">🤖 Chatbot</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-900 tracking-tight">ChatbotFactory — Chatbots métier personnalisés</h3>
+                        <p class="text-sm text-slate-500 mt-2">Déploiement en quelques jours d'un assistant conversationnel entraîné sur la base de connaissances du client. Intégrable sur site web, WhatsApp ou outil métier — répond 24h/24 et réduit la charge de support.</p>
+                    </div>
+                </div>
+
+                <!-- Video 3 — MagFlow -->
+                <div class="video-card bg-white rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/50 overflow-hidden reveal">
+                    <div class="aspect-video bg-slate-100">
+                        <iframe src="https://www.loom.com/embed/2e02ed6eaabe4921a53ef78301029775" width="100%" height="100%" frameborder="0" title="MagFlow — Mise en page automatique de magazines via InDesign" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-50 text-purple-600">📐 Édition</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-900 tracking-tight">MagFlow — Mise en page automatique de magazines via InDesign</h3>
+                        <p class="text-sm text-slate-500 mt-2">Application desktop qui automatise la mise en page : importe les contenus et se connecte à InDesign via API pour placer automatiquement textes et images dans la maquette. Plus de manipulation manuelle — le contenu s'intègre en quelques clics.</p>
+                    </div>
+                </div>
+
+                <!-- Video 4 — DCE Analyzer -->
+                <div class="video-card bg-white rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/50 overflow-hidden reveal">
+                    <div class="aspect-video bg-slate-100">
+                        <iframe src="https://drive.google.com/file/d/1tGaomIgOTQ6pfXGpwKfCQAyTbNasz4kA/preview" width="100%" height="100%" frameborder="0" title="DCE Analyzer — Analyse automatique de dossiers BTP" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-violet-50 text-violet-600">⚡ BTP</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-900 tracking-tight">DCE Analyzer — Analyse automatique de dossiers BTP</h3>
+                        <p class="text-sm text-slate-500 mt-2">Agent IA basé sur Claude Vision qui lit les pièces d'un dossier de consultation — y compris les plans électriques — pour extraire les équipements à chiffrer et préremplir les mémoires techniques. Réponse aux appels d'offres en fraction du temps habituel.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-24 bg-slate-50">
+        <div class="max-w-3xl mx-auto px-6 text-center reveal">
+            <h2 class="text-3xl lg:text-4xl font-semibold text-slate-900 tracking-tight mb-6">Envie du même résultat pour votre entreprise ?</h2>
+            <p class="text-lg text-slate-500 mb-10">Réservez votre audit gratuit et découvrez ce que l'IA peut faire pour vous.</p>
+            <a href="index.html#audit" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-white bg-primary rounded-full shadow-lg shadow-teal-500/25 hover:bg-teal-700 hover:-translate-y-0.5 transition-all">
+                Démarrer l'audit gratuit
+                <iconify-icon icon="solar:arrow-right-linear" class="ml-2"></iconify-icon>
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-slate-400 py-16 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                            <span class="text-white font-semibold text-sm">P</span>
+                        </div>
+                        <span class="text-white font-medium tracking-tight">Polaris IA</span>
+                    </div>
+                    <p class="text-sm leading-relaxed">Accélérateur de croissance pour PME grâce à l'automatisation intelligente.</p>
+                </div>
+
+                <div>
+                    <h5 class="text-white font-medium mb-4">Entreprise</h5>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-primary transition-colors">À propos</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Carrières</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-white font-medium mb-4">Légal</h5>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-primary transition-colors">Mentions légales</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Confidentialité</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">CGV</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-white font-medium mb-4">Contact</h5>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center gap-2"><iconify-icon icon="solar:letter-linear"></iconify-icon> hello@polaris-ia.com</li>
+                        <li class="flex items-center gap-2"><iconify-icon icon="solar:map-point-linear"></iconify-icon> Paris, France</li>
+                    </ul>
+                    <div class="flex gap-4 mt-4">
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn"><iconify-icon icon="solar:brand-linkedin-linear" width="20"></iconify-icon></a>
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Twitter"><iconify-icon icon="solar:brand-twitter-linear" width="20"></iconify-icon></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+                <p>© 2025 Polaris IA. Tous droits réservés.</p>
+                <div class="flex items-center gap-1">
+                    <span>Conçu avec</span>
+                    <iconify-icon icon="solar:heart-bold" class="text-red-500"></iconify-icon>
+                    <span>en France</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            iconOpen.classList.toggle('hidden');
+            iconClose.classList.toggle('hidden');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                iconOpen.classList.remove('hidden');
+                iconClose.classList.add('hidden');
+            });
+        });
+
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), i * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Navbar shadow on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+    });
+    </script>
+
+    <!-- Polaris IA — Propulsé par ChatFactory -->
+    <script src="https://chatbotator.netlify.app/w/d7b25b4029608e52.js" async></script>
+
+</body>
+</html>

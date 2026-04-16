@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Polaris IA — Pilotage de marge en temps réel pour restaurateurs</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#dbe1ff",
+                    "surface-dim": "#d8dadc",
+                    "surface-tint": "#0053db",
+                    "tertiary-fixed": "#ffdbcd",
+                    "on-background": "#191c1e",
+                    "primary-container": "#2563eb",
+                    "secondary": "#495c95",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "inverse-primary": "#b4c5ff",
+                    "on-primary-container": "#eeefff",
+                    "inverse-on-surface": "#eff1f3",
+                    "primary-fixed": "#dbe1ff",
+                    "on-surface": "#191c1e",
+                    "inverse-surface": "#2d3133",
+                    "outline-variant": "#c3c6d7",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "tertiary": "#943700",
+                    "on-primary-fixed": "#00174b",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "secondary-container": "#acbfff",
+                    "on-secondary-fixed-variant": "#31447b",
+                    "on-error": "#ffffff",
+                    "primary": "#004ac6",
+                    "on-secondary-container": "#394c84",
+                    "surface-variant": "#e0e3e5",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed": "#00174b",
+                    "on-tertiary-fixed": "#360f00",
+                    "outline": "#737686",
+                    "surface-container-high": "#e6e8ea",
+                    "surface-container-highest": "#e0e3e5",
+                    "tertiary-container": "#bc4800",
+                    "surface-container": "#eceef0",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "surface-container-low": "#f2f4f6",
+                    "on-surface-variant": "#434655",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#b4c5ff",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-container": "#ffede6",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "background": "#f7f9fb",
+                    "primary-fixed-dim": "#b4c5ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Lexend"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      html { scroll-behavior: smooth; }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(20px);
+      }
+      .ambient-shadow {
+        box-shadow: 0px 4px 20px rgba(25, 28, 30, 0.04), 0px 10px 40px rgba(25, 28, 30, 0.02);
+      }
+      .macbook-shadow {
+        box-shadow: 0 50px 100px -20px rgba(0,0,0,0.25), 0 30px 60px -30px rgba(0,0,0,0.3);
+      }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-white">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl border-b border-outline-variant/10 shadow-sm">
+<nav class="flex justify-between items-center px-4 sm:px-8 py-4 max-w-7xl mx-auto">
+<div class="text-2xl font-bold tracking-tighter text-slate-900 font-lexend">
+                Polaris IA
+            </div>
+<div class="hidden md:flex gap-10 items-center">
+<a class="text-slate-600 font-medium hover:text-primary transition-colors duration-300 font-lexend tracking-tight" href="#fonctionnement">Fonctionnement</a>
+<a class="text-slate-600 font-medium hover:text-primary transition-colors duration-300 font-lexend tracking-tight" href="#cockpit">Cockpit</a>
+<a class="text-slate-600 font-medium hover:text-primary transition-colors duration-300 font-lexend tracking-tight" href="#tarifs">Tarifs</a>
+</div>
+<div class="flex items-center gap-4">
+<a href="https://calendly.com/bouteliertom/30min" target="_blank" class="bg-primary text-white px-6 py-2.5 rounded-full font-semibold shadow-sm hover:scale-95 transition-transform font-lexend tracking-tight">Essayer gratuitement</a>
+</div>
+</nav>
+</header>
+<main class="pt-24 overflow-x-hidden">
+<!-- Hero Section -->
+<section class="relative px-4 sm:px-8 pt-10 lg:pt-16 pb-16 lg:pb-32 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+<div class="lg:col-span-7 flex flex-col items-start text-left">
+<span class="text-primary font-bold tracking-widest mb-6 uppercase text-sm">L'intelligence au service du goût</span>
+<h1 class="font-headline text-3xl sm:text-4xl lg:text-[3.5rem] leading-[1.1] font-extrabold tracking-tighter text-on-surface mb-6 lg:mb-8">
+                    Optimisez la gestion<br class="hidden sm:block"/> de votre <span class="text-primary italic">restaurant</span>.
+                </h1>
+<div class="flex flex-col gap-3 mb-10">
+  <div class="flex items-center gap-3">
+    <span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings:'FILL' 1">trending_up</span>
+    <span class="text-on-surface font-semibold text-lg">Marges augmentées</span>
+  </div>
+  <div class="flex items-center gap-3">
+    <span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings:'FILL' 1">psychology</span>
+    <span class="text-on-surface font-semibold text-lg">Charge mentale réduite</span>
+  </div>
+  <div class="flex items-center gap-3">
+    <span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings:'FILL' 1">delete_sweep</span>
+    <span class="text-on-surface font-semibold text-lg">Gaspillage qui disparaît</span>
+  </div>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a href="https://calendly.com/bouteliertom/30min" target="_blank" class="bg-primary text-white px-8 py-4 rounded-full font-bold text-lg ambient-shadow hover:scale-95 transition-all">Essayer gratuitement</a>
+<a href="https://loom.com/share/366f5b48853a4c719fae220fa70dad92" target="_blank" class="bg-surface-container-high text-on-surface px-8 py-4 rounded-full font-bold text-lg hover:bg-surface-container-highest transition-all">Voir une démo</a>
+</div>
+</div>
+<div class="lg:col-span-5 relative">
+<div class="relative z-10">
+<img alt="Polaris IA — dashboard multi-devices" class="w-full object-contain drop-shadow-2xl" src="mockup-devices.png"/>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="bg-surface-container-low py-16 lg:py-24 px-4 sm:px-8">
+<div class="max-w-7xl mx-auto">
+<p class="text-center text-sm font-semibold text-primary uppercase tracking-widest mb-6">Jusqu'à</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-surface-container-lowest p-6 md:p-10 rounded-2xl ambient-shadow flex flex-col gap-4">
+<span class="material-symbols-outlined text-4xl text-primary" data-weight="fill">savings</span>
+<h3 class="text-4xl font-headline font-bold text-on-surface">6 points</h3>
+<p class="text-on-surface-variant font-medium">de food cost économisés grâce à la détection immédiate des hausses de prix fournisseurs.</p>
+</div>
+<div class="bg-surface-container-lowest p-6 md:p-10 rounded-2xl ambient-shadow flex flex-col gap-4">
+<span class="material-symbols-outlined text-4xl text-primary" data-weight="fill">schedule</span>
+<h3 class="text-4xl font-headline font-bold text-on-surface">20 h/mois</h3>
+<p class="text-on-surface-variant font-medium">de saisie manuelle supprimées. Plus de temps pour vos équipes et vos clients.</p>
+</div>
+<div class="bg-surface-container-lowest p-6 md:p-10 rounded-2xl ambient-shadow flex flex-col gap-4">
+<span class="material-symbols-outlined text-4xl text-primary" data-weight="fill">payments</span>
+<h3 class="text-4xl font-headline font-bold text-on-surface">70k €/an</h3>
+<p class="text-on-surface-variant font-medium">de rentabilité récupérable pour un établissement moyen réalisant 800k€ de CA.</p>
+</div>
+</div>
+<p class="text-xs text-on-surface-variant/60 text-center mt-6">* Estimations basées sur les moyennes du secteur de la restauration (sources : UMIH, Gira Conseil, données internes).</p>
+</div>
+</section>
+<!-- The Problem -->
+<section class="py-16 lg:py-32 px-4 sm:px-8 max-w-7xl mx-auto">
+<div class="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+<div>
+<h2 class="font-headline text-4xl lg:text-5xl font-bold tracking-tight mb-8">Aujourd'hui, piloter ses coûts en restaurant, c'est un <span class="text-error">cauchemar</span>.</h2>
+<div class="space-y-6">
+<div class="flex gap-4 p-6 rounded-2xl bg-error-container/20">
+<span class="material-symbols-outlined text-error" data-weight="fill">error</span>
+<p class="text-on-surface-variant">Factures électroniques dispersées, introuvables, jamais à jour.</p>
+</div>
+<div class="flex gap-4 p-6 rounded-2xl bg-error-container/20">
+<span class="material-symbols-outlined text-error" data-weight="fill">error</span>
+<p class="text-on-surface-variant">Fichiers Excel complexes, jamais à jour, source d'erreurs.</p>
+</div>
+<div class="flex gap-4 p-6 rounded-2xl bg-error-container/20">
+<span class="material-symbols-outlined text-error" data-weight="fill">error</span>
+<p class="text-on-surface-variant">Hausse des prix fournisseurs invisible jusqu'au bilan comptable.</p>
+</div>
+</div>
+</div>
+<div class="bg-primary/5 p-8 md:p-12 rounded-3xl relative border border-primary/10">
+<h3 class="font-headline text-2xl font-bold mb-6 text-primary">La clarté Polaris IA</h3>
+<p class="text-lg text-on-surface-variant mb-8 italic">"Je ne savais pas que mon fournisseur de poisson avait augmenté de 15% le mois dernier. Avec Polaris, je l'ai vu en 24h et j'ai ajusté mon menu immédiatement."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-slate-300 overflow-hidden">
+<img alt="Chef Thomas Meyer" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDp4AFdUxMT7FEhtgZzxSuZlz2KiU1_bzmAbe4LsRribx0RN5KVLh3LeuoMRudDsYOH4vA41Ez7Rl5xiy8RRF1_omD-IRSzc_RAzNP9ABxkwgPGJXB5kG_6vN72jVUZhpXszqqzkmtUAwCaihZA4ZRz8W5zOHE71f9ADuJpgchEB00_P9-Y2EBFrobP45wZWFwFy9w_yNpfan3vXIX1tOooXTvkP5QK1bXvWi6PdO0BOcvTv26t-JfbSVkwCDjpSG_g_snHjCr6yz0"/>
+</div>
+<div>
+<p class="font-bold">Thomas Meyer</p>
+<p class="text-sm text-on-surface-variant">Chef Propriétaire, Le Jardin</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Updated How it Works Section -->
+<section id="fonctionnement" class="py-16 lg:py-32 px-4 sm:px-8 bg-white">
+<div class="max-w-7xl mx-auto text-center">
+<h2 class="font-headline text-4xl lg:text-5xl font-bold tracking-tight mb-4">Fonctionnement en 3 étapes</h2>
+<p class="text-on-surface-variant text-xl mb-24 max-w-2xl mx-auto">Polaris s'occupe de tout, vous vous occupez de votre cuisine.</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-16 relative">
+<!-- Progress Line (Desktop) -->
+<div class="hidden md:block absolute top-12 left-[15%] right-[15%] h-px bg-outline-variant/30 z-0"></div>
+<!-- Step 1 -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-8 border-4 border-white shadow-sm">
+<span class="text-primary font-bold text-2xl font-headline">1</span>
+</div>
+<h4 class="text-2xl font-bold mb-4 font-headline">Déposez vos factures</h4>
+<p class="text-on-surface-variant max-w-xs mx-auto leading-relaxed">Importez vos PDF ou prenez une photo. Glissez-déposez, c'est tout ce qu'on vous demande.</p>
+</div>
+<!-- Step 2 -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-8 border-4 border-white shadow-sm">
+<span class="text-primary font-bold text-2xl font-headline">2</span>
+</div>
+<h4 class="text-2xl font-bold mb-4 font-headline">L'IA analyse tout</h4>
+<p class="text-on-surface-variant max-w-xs mx-auto leading-relaxed">Notre intelligence artificielle extrait chaque ligne, vérifie les prix et standardise les unités.</p>
+</div>
+<!-- Step 3 -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-8 border-4 border-white shadow-sm">
+<span class="text-primary font-bold text-2xl font-headline">3</span>
+</div>
+<h4 class="text-2xl font-bold mb-4 font-headline">Pilotez en direct avec votre assistant 24/24</h4>
+<p class="text-on-surface-variant max-w-xs mx-auto leading-relaxed">Vos fiches techniques se mettent à jour. Posez une question à votre chatbot IA à tout moment — alerte immédiate si un fournisseur augmente ses prix.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Cockpit Section -->
+<section id="cockpit" class="py-16 lg:py-32 px-4 sm:px-8 bg-surface-container-low overflow-hidden">
+<div class="max-w-6xl mx-auto">
+<div class="text-center mb-12 lg:mb-16">
+<h2 class="font-headline text-3xl lg:text-5xl font-bold tracking-tight mb-4">Un cockpit complet pour votre rentabilité</h2>
+<p class="text-on-surface-variant text-lg lg:text-xl max-w-3xl mx-auto">Visualisez instantanément vos performances et agissez là où ça compte, sur une interface conçue pour la clarté.</p>
+</div>
+<!-- Vidéo démo -->
+<div class="w-full max-w-4xl mx-auto mb-12 lg:mb-16">
+  <div style="position: relative; width: 100%; height: 0; padding-top: 56.2500%; padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px; will-change: transform;">
+    <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
+      src="https://www.canva.com/design/DAHG8JfMHVI/Y0dd5MA6EVgHXZVPOUvIcA/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+    </iframe>
+  </div>
+</div>
+<!-- Feature bullets -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+<div class="space-y-4">
+<h3 class="font-headline text-xl font-bold">Analyse par plat</h3>
+<ul class="space-y-3">
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Rentabilité par portion précise</span>
+</li>
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Historique d'achat des ingrédients</span>
+</li>
+</ul>
+</div>
+<div class="space-y-4">
+<h3 class="font-headline text-xl font-bold">Suivi fournisseurs</h3>
+<ul class="space-y-3">
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Répartition des dépenses live</span>
+</li>
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Alertes prix automatisées</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Comparison Table -->
+<section class="py-16 lg:py-32 px-4 sm:px-8 max-w-5xl mx-auto">
+<h2 class="font-headline text-3xl lg:text-4xl font-bold text-center mb-10 lg:mb-16">"Ma comptable le fait déjà"</h2>
+<div class="bg-surface-container-lowest rounded-2xl ambient-shadow overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[540px]">
+<thead>
+<tr class="bg-surface-container">
+<th class="p-4 md:p-8 font-headline text-base md:text-lg font-bold">Fonctionnalité</th>
+<th class="p-4 md:p-8 font-headline text-base md:text-lg font-bold text-on-surface-variant">Comptable Classique</th>
+<th class="p-4 md:p-8 font-headline text-base md:text-lg font-bold text-primary">Polaris IA</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr>
+<td class="p-4 md:p-8 font-medium">Fréquence de mise à jour</td>
+<td class="p-4 md:p-8 text-on-surface-variant">Tous les mois ou trimestres</td>
+<td class="p-4 md:p-8 font-bold text-primary">Temps réel (H+24)</td>
+</tr>
+<tr>
+<td class="p-4 md:p-8 font-medium">Détail des ingrédients</td>
+<td class="p-4 md:p-8 text-on-surface-variant">Montant global HT/TTC</td>
+<td class="p-4 md:p-8 font-bold text-primary">Chaque ligne détaillée par unité</td>
+</tr>
+<tr>
+<td class="p-4 md:p-8 font-medium">Calcul de marge brute plat/plat</td>
+<td class="p-4 md:p-8 text-on-surface-variant">Impossible</td>
+<td class="p-4 md:p-8 font-bold text-primary">Automatique</td>
+</tr>
+<tr>
+<td class="p-4 md:p-8 font-medium">Alertes hausses de prix</td>
+<td class="p-4 md:p-8 text-on-surface-variant">Aucune</td>
+<td class="p-4 md:p-8 font-bold text-primary">Notification immédiate</td>
+</tr>
+<tr>
+<td class="p-4 md:p-8 font-medium">Assistant / Chatbot IA</td>
+<td class="p-4 md:p-8 text-on-surface-variant">Aucun</td>
+<td class="p-4 md:p-8 font-bold text-primary">Disponible 24h/24, 7j/7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Pricing -->
+<section id="tarifs" class="py-16 lg:py-32 px-4 sm:px-8 bg-surface-container-low">
+<div class="max-w-7xl mx-auto text-center">
+<h2 class="font-headline text-3xl lg:text-4xl font-bold mb-10 lg:mb-16">Un investissement, pas un coût.</h2>
+<div class="max-w-xl mx-auto">
+<!-- Complet -->
+<div class="bg-primary p-8 md:p-12 rounded-2xl text-left flex flex-col text-white relative ambient-shadow z-10">
+<div class="absolute top-0 right-10 -translate-y-1/2 bg-on-tertiary-fixed-variant text-white text-xs font-bold px-4 py-1 rounded-full tracking-widest uppercase">Recommandé</div>
+<h3 class="text-2xl font-bold mb-2 font-headline">Complet</h3>
+<p class="text-white/70 mb-6">Le pilotage total de votre rentabilité.</p>
+<div class="mb-8">
+<span class="text-5xl font-headline font-bold">249 €</span>
+<span class="text-white/70 font-medium">/ mois</span>
+</div>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white text-xl">check_circle</span>
+<span>Factures illimitées</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white text-xl">check_circle</span>
+<span>Fiches techniques dynamiques</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white text-xl">check_circle</span>
+<span>Intégration POS / Caisse</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white text-xl">check_circle</span>
+<span>Dashboard multisites</span>
+</li>
+</ul>
+<button class="w-full py-4 rounded-full bg-white text-primary font-bold hover:bg-white/90 transition-all">Choisir Complet</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="py-16 lg:py-32 px-4 sm:px-8 bg-white">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12 lg:mb-16">
+      <h2 class="font-headline text-3xl lg:text-4xl font-bold tracking-tight mb-4">Ils nous font confiance</h2>
+      <p class="text-on-surface-variant text-lg max-w-2xl mx-auto">Des entrepreneurs et restaurateurs qui ont sauté le pas.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Testimonial 1 -->
+      <div class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow flex flex-col gap-6 border border-outline-variant/10">
+        <div class="flex gap-1">
+          <span class="material-symbols-outlined text-yellow-400" style="font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined text-yellow-400" style="font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined text-yellow-400" style="font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined text-yellow-400" style="font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined text-yellow-400" style="font-variation-settings:'FILL' 1">star</span>
+        </div>
+        <p class="text-on-surface-variant italic leading-relaxed flex-grow">"Prestataire top ! Réactivité et force de proposition. Je recommande."</p>
+        <div class="flex items-center gap-4 pt-2 border-t border-outline-variant/10">
+          <div class="w-11 h-11 rounded-full bg-primary flex items-center justify-center text-white font-bold text-lg font-headline flex-shrink-0">B</div>
+          <div>
+            <p class="font-bold text-on-surface">Bora</p>
+            <p class="text-sm text-on-surface-variant">Gérant — Mary Menuiserie Sàrl</p>
+          </div>
+        </div>
+      </div>
+      <!-- Testimonial 2 -->
+      <div class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow flex flex-col gap-6 border border-outline-variant/10">
+        <div class="flex gap-1">
+          <span class="material-symbols-outlined text-yellow-400" style="font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined text-yellow-400" style="font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined text-yellow-400" style="font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined text-yellow-400" style="font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined text-yellow-400" style="font-variation-settings:'FILL' 1">star</span>
+        </div>
+        <p class="text-on-surface-variant italic leading-relaxed flex-grow">"Alex m'a fait une excellente impression. Il a parfaitement compris mon projet et a su proposer des idées et des solutions pertinentes. Ses explications sont claires et il rend la collaboration agréable. À recommander à 200% !"</p>
+        <div class="flex items-center gap-4 pt-2 border-t border-outline-variant/10">
+          <div class="w-11 h-11 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-lg font-headline flex-shrink-0">P</div>
+          <div>
+            <p class="font-bold text-on-surface">Pierre Y.</p>
+            <p class="text-sm text-on-surface-variant">Client Fiverr — ⭐ 5/5</p>
+          </div>
+        </div>
+      </div>
+      <!-- Testimonial 3 -->
+      <div class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow flex flex-col gap-6 border border-outline-variant/10">
+        <div class="flex gap-1">
+          <span class="material-symbols-outlined text-yellow-400" style="font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined text-yellow-400" style="font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined text-yellow-400" style="font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined text-yellow-400" style="font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined text-yellow-400" style="font-variation-settings:'FILL' 1">star</span>
+        </div>
+        <p class="text-on-surface-variant italic leading-relaxed flex-grow">"Je suis totalement satisfait du produit, le chatbot est très intuitif et correspond parfaitement à ce dont j'avais besoin. Merci à Alexandre pour son excellent travail !"</p>
+        <div class="flex items-center gap-4 pt-2 border-t border-outline-variant/10">
+          <div class="w-11 h-11 rounded-full bg-slate-500 flex items-center justify-center text-white font-bold text-lg font-headline flex-shrink-0">L</div>
+          <div>
+            <p class="font-bold text-on-surface">Laur78ti</p>
+            <p class="text-sm text-on-surface-variant">Client Fiverr — ⭐ 5/5</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Final CTA -->
+<section id="cta" class="py-16 lg:py-32 px-4 sm:px-8 max-w-7xl mx-auto">
+<div class="bg-slate-900 rounded-3xl p-8 sm:p-12 md:p-16 text-center text-white relative overflow-hidden">
+<div class="absolute inset-0 opacity-20">
+<img alt="Happy restaurant team" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPKOrbLFGQCmO-lEC8PREAw1F1pP2N7j8vNu3flDfxlFmpCWcLLy-0I_sh4dgoANko3VlDmZ_4MtJWWh9qiCKxcZdt1OHdHhBIHn06SgFPQjtCdHwW0aGoR7JUpmjIpuFIxO7162ti9dE6HXpN4Z4UekLFnC3BDRL7OfwnFMB4pN2_SWnz0JZrHYl7g__jwHZceUDbFwqbwp0nb5ZZ-JbH-U3K-w01iqvcic3T9kU274JofNw8bysi9XxKsKAMmUL5TDARQHIyrhc"/>
+</div>
+<div class="relative z-10">
+<h2 class="font-headline text-4xl lg:text-5xl font-bold mb-8">Un restaurant qui fait 500 000 € de CA... <br class="hidden md:block"/> c'est <span class="text-primary-fixed">15 000 € de plus</span> par an dans sa poche.</h2>
+<p class="text-xl text-slate-300 mb-12 max-w-2xl mx-auto leading-relaxed">Rejoignez les 400+ restaurateurs qui ont arrêté de naviguer à vue et ont repris le contrôle de leurs marges.</p>
+<div class="flex flex-col sm:flex-row gap-6 justify-center">
+<button class="bg-primary px-10 py-5 rounded-full font-bold text-lg hover:bg-primary-container transition-all">Réserver une démo gratuite</button>
+<button class="bg-transparent border border-white/30 px-10 py-5 rounded-full font-bold text-lg hover:bg-white/10 transition-all">Nous contacter</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface py-12 px-8 border-t border-outline-variant/10">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-7xl mx-auto font-inter text-sm tracking-wide">
+<div class="text-xl font-bold text-slate-900 font-lexend">
+                Polaris IA
+            </div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="text-slate-500 hover:text-primary transition-all" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-primary transition-all" href="#">Terms of Service</a>
+<a class="text-slate-500 hover:text-primary transition-all" href="#">Contact Us</a>
+<a class="text-slate-500 hover:text-primary transition-all" href="#">Documentation</a>
+</div>
+<p class="text-slate-500">© 2024 Polaris IA. All rights reserved.</p>
+</div>
+</footer>
+</body></html>
