@@ -291,43 +291,72 @@
 <!-- Comparison Table -->
 <section class="py-16 lg:py-32 px-4 sm:px-8 max-w-5xl mx-auto">
 <h2 class="font-headline text-3xl lg:text-4xl font-bold text-center mb-10 lg:mb-16">"Ma comptable le fait déjà"</h2>
-<div class="bg-surface-container-lowest rounded-2xl ambient-shadow overflow-x-auto">
-<table class="w-full text-left border-collapse min-w-[540px]">
+<!-- Desktop table -->
+<div class="hidden md:block bg-surface-container-lowest rounded-2xl ambient-shadow">
+<table class="w-full text-left border-collapse">
 <thead>
 <tr class="bg-surface-container">
-<th class="p-4 md:p-8 font-headline text-base md:text-lg font-bold">Fonctionnalité</th>
-<th class="p-4 md:p-8 font-headline text-base md:text-lg font-bold text-on-surface-variant">Comptable Classique</th>
-<th class="p-4 md:p-8 font-headline text-base md:text-lg font-bold text-primary">Polaris IA</th>
+<th class="p-8 font-headline text-lg font-bold">Fonctionnalité</th>
+<th class="p-8 font-headline text-lg font-bold text-on-surface-variant">Comptable Classique</th>
+<th class="p-8 font-headline text-lg font-bold text-primary">Polaris IA</th>
 </tr>
 </thead>
 <tbody class="divide-y divide-outline-variant/10">
 <tr>
-<td class="p-4 md:p-8 font-medium">Fréquence de mise à jour</td>
-<td class="p-4 md:p-8 text-on-surface-variant">Tous les mois ou trimestres</td>
-<td class="p-4 md:p-8 font-bold text-primary">Temps réel (H+24)</td>
+<td class="p-8 font-medium">Fréquence de mise à jour</td>
+<td class="p-8 text-on-surface-variant">Tous les mois ou trimestres</td>
+<td class="p-8 font-bold text-primary">Temps réel (H+24)</td>
 </tr>
 <tr>
-<td class="p-4 md:p-8 font-medium">Détail des ingrédients</td>
-<td class="p-4 md:p-8 text-on-surface-variant">Montant global HT/TTC</td>
-<td class="p-4 md:p-8 font-bold text-primary">Chaque ligne détaillée par unité</td>
+<td class="p-8 font-medium">Détail des ingrédients</td>
+<td class="p-8 text-on-surface-variant">Montant global HT/TTC</td>
+<td class="p-8 font-bold text-primary">Chaque ligne détaillée par unité</td>
 </tr>
 <tr>
-<td class="p-4 md:p-8 font-medium">Calcul de marge brute plat/plat</td>
-<td class="p-4 md:p-8 text-on-surface-variant">Impossible</td>
-<td class="p-4 md:p-8 font-bold text-primary">Automatique</td>
+<td class="p-8 font-medium">Calcul de marge brute plat/plat</td>
+<td class="p-8 text-on-surface-variant">Impossible</td>
+<td class="p-8 font-bold text-primary">Automatique</td>
 </tr>
 <tr>
-<td class="p-4 md:p-8 font-medium">Alertes hausses de prix</td>
-<td class="p-4 md:p-8 text-on-surface-variant">Aucune</td>
-<td class="p-4 md:p-8 font-bold text-primary">Notification immédiate</td>
+<td class="p-8 font-medium">Alertes hausses de prix</td>
+<td class="p-8 text-on-surface-variant">Aucune</td>
+<td class="p-8 font-bold text-primary">Notification immédiate</td>
 </tr>
 <tr>
-<td class="p-4 md:p-8 font-medium">Assistant / Chatbot IA</td>
-<td class="p-4 md:p-8 text-on-surface-variant">Aucun</td>
-<td class="p-4 md:p-8 font-bold text-primary">Disponible 24h/24, 7j/7</td>
+<td class="p-8 font-medium">Assistant / Chatbot IA</td>
+<td class="p-8 text-on-surface-variant">Aucun</td>
+<td class="p-8 font-bold text-primary">Disponible 24h/24, 7j/7</td>
 </tr>
 </tbody>
 </table>
+</div>
+<!-- Mobile cards -->
+<div class="md:hidden flex flex-col gap-4">
+<div class="bg-surface-container-lowest rounded-2xl ambient-shadow p-5">
+<p class="font-headline font-bold text-on-surface mb-3">Fréquence de mise à jour</p>
+<div class="flex items-start gap-3 mb-2"><span class="text-on-surface-variant text-sm font-medium w-28 shrink-0">Comptable</span><span class="text-on-surface-variant text-sm">Tous les mois ou trimestres</span></div>
+<div class="flex items-start gap-3"><span class="text-primary text-sm font-bold w-28 shrink-0">Polaris IA</span><span class="text-primary text-sm font-bold">Temps réel (H+24)</span></div>
+</div>
+<div class="bg-surface-container-lowest rounded-2xl ambient-shadow p-5">
+<p class="font-headline font-bold text-on-surface mb-3">Détail des ingrédients</p>
+<div class="flex items-start gap-3 mb-2"><span class="text-on-surface-variant text-sm font-medium w-28 shrink-0">Comptable</span><span class="text-on-surface-variant text-sm">Montant global HT/TTC</span></div>
+<div class="flex items-start gap-3"><span class="text-primary text-sm font-bold w-28 shrink-0">Polaris IA</span><span class="text-primary text-sm font-bold">Chaque ligne détaillée par unité</span></div>
+</div>
+<div class="bg-surface-container-lowest rounded-2xl ambient-shadow p-5">
+<p class="font-headline font-bold text-on-surface mb-3">Calcul de marge brute plat/plat</p>
+<div class="flex items-start gap-3 mb-2"><span class="text-on-surface-variant text-sm font-medium w-28 shrink-0">Comptable</span><span class="text-on-surface-variant text-sm">Impossible</span></div>
+<div class="flex items-start gap-3"><span class="text-primary text-sm font-bold w-28 shrink-0">Polaris IA</span><span class="text-primary text-sm font-bold">Automatique</span></div>
+</div>
+<div class="bg-surface-container-lowest rounded-2xl ambient-shadow p-5">
+<p class="font-headline font-bold text-on-surface mb-3">Alertes hausses de prix</p>
+<div class="flex items-start gap-3 mb-2"><span class="text-on-surface-variant text-sm font-medium w-28 shrink-0">Comptable</span><span class="text-on-surface-variant text-sm">Aucune</span></div>
+<div class="flex items-start gap-3"><span class="text-primary text-sm font-bold w-28 shrink-0">Polaris IA</span><span class="text-primary text-sm font-bold">Notification immédiate</span></div>
+</div>
+<div class="bg-surface-container-lowest rounded-2xl ambient-shadow p-5">
+<p class="font-headline font-bold text-on-surface mb-3">Assistant / Chatbot IA</p>
+<div class="flex items-start gap-3 mb-2"><span class="text-on-surface-variant text-sm font-medium w-28 shrink-0">Comptable</span><span class="text-on-surface-variant text-sm">Aucun</span></div>
+<div class="flex items-start gap-3"><span class="text-primary text-sm font-bold w-28 shrink-0">Polaris IA</span><span class="text-primary text-sm font-bold">Disponible 24h/24, 7j/7</span></div>
+</div>
 </div>
 </section>
 <!-- Pricing -->
